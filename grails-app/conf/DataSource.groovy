@@ -22,7 +22,7 @@ environments {
           url = "jdbc:postgresql://localhost:5432/pruebaFormulario_dev"
           driverClassName = "org.postgresql.Driver"
           username = "postgres"
-          password = "ivy.2016"
+          password = "marcos321"
 
           //  dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
           //  url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
