@@ -1,12 +1,12 @@
 package pruebaformulario
 
+//import static org.springframework.http.HttpStatus.*
+//import grails.transaction.Transactional
+import grails.converters.*
 
-
-import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
-
-@Transactional(readOnly = true)
 class PruebaformularioController {
+  def formularioService
+  def validationService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -23,28 +23,62 @@ class PruebaformularioController {
         respond new Pruebaformulario(params)
     }
 
-    @Transactional
-    def save(Pruebaformulario pruebaformularioInstance) {
-        if (pruebaformularioInstance == null) {
-            notFound()
-            return
-        }
 
-        if (pruebaformularioInstance.hasErrors()) {
-            respond pruebaformularioInstance.errors, view:'create'
-            return
-        }
+//--------------------------------POST Method-----------------------------------
+    def save(def parametros) {
+      log.printlm("llega un request al POST")
+      def formulario
+      def error
 
-        pruebaformularioInstance.save flush:true
+      try {
+        log.println("validacion")
+        validationService.validate(parametros)
+        log.println("paso las validaciones")
+      } catch (Exception v){
+        log.println("error en validacion")
+        error = v.getMessage()
+      }
 
+      try {
+        log.println("guardando")
+        formularioService.guardar(parametros)
+        log.println("guardado")
+      } catch (Exception s){
+        log.println("error en guardado")
+        error = s.getMessage()
+      }
+
+      if (formulario){
+        log.println("formulario guardado")
+        response.status = 201
         request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect pruebaformularioInstance
-            }
-            '*' { respond pruebaformularioInstance, [status: CREATED] }
+          form multipartForm {
+            flash.message = message(code: 'default.created.message', args: [message(code: 'formulario.label', default: 'Pruebaformulario'), formulario.id])
+            redirect formulario
+          }
+          '*' { respond formulario, [status: CREATED] }
         }
+      } else {
+
+      }
+
+      //-----------------------------Sin Uso------------------------------------
+      /*
+      if (pruebaformularioInstance == null) {
+          notFound()
+          return
+      }
+
+      if (pruebaformularioInstance.hasErrors()) {
+          respond pruebaformularioInstance.errors, view:'create'
+          return
+      }
+
+      pruebaformularioInstance.save flush:true
+      */
+
     }
+//------------------------------------------------------------------------------
 
     def edit(Pruebaformulario pruebaformularioInstance) {
         respond pruebaformularioInstance
