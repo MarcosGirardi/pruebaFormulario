@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class ValidationService {
 
+
+//----------------------------Form Validation-----------------------------------
     def validate(def params) {
       log.println("validadndo")
       String message

@@ -5,6 +5,7 @@ class PruebaformularioController {
   def validationService
   def formularioService
 
+//----------------------------------POST----------------------------------------
     def create() {
       log.println("llega un request")
       def parametros = request.JSON
@@ -21,7 +22,7 @@ class PruebaformularioController {
       }
 
       try {
-        log.println("guardado")
+        log.println("guardando")
         formularioService.guardar(parametros)
         log.println("guardado")
       } catch (Exception s){

@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class FormularioService {
 
+//------------------------------Form Save---------------------------------------
     def guardar(def params) {
       FormularioService form
       form.apellido = params.apellido
@@ -16,7 +17,15 @@ class FormularioService {
       if (params.hobbies){
         form.hobbies = params.hobbies
       }
-      form.save(flush:true)
+
+      try{
+        log.println("se va a guardar")
+        form.save(flush:true)
+        log.println("se guardó")
+      } catch (Exception s){
+        log.println("error al intentar guardar")
+        throw new Exception (s.getMessage())
+      }
 
       recurso
 
