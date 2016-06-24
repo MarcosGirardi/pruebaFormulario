@@ -3,7 +3,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'pruebaformulario.label', default: 'Pruebaformulario')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>Nueva Persona</title>
 	</head>
 	<body>
 		<a href="#create-pruebaformulario" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -14,7 +14,7 @@
 			</ul>
 		</div>
 		<div id="create-pruebaformulario" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<h1> Nueva Persona</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,14 +25,55 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:pruebaformularioInstance, action:'save']" >
+			<g:form controller="Pruebaformulario" action="save">
+			<fieldset class="form">
+				<div class="fieldcontain ">
+					 <label> Apellido: </label>
+					 <g:textField name="apellido" /><br/>
+				</div>
+				<div class="fieldcontain">
+					<label> Fecha de Nacimiento: </label>
+						<g:datePicker name="fechaNac" value="${new Date()}"precision="day"
+							noSelection="['':'-Choose-']" /><br/>
+				</div>
+				<div class="fieldcontain">
+				 <label> Genero : </label>
+				 <g:radio name="genero" value="F"/> F
+				 <g:radio name="genero" value="M" checked="true"/> M
+			 </div>
+					<div class="fieldcontain required">
+					 <label>DNI: </label>
+					 <g:textField name="dni"/><br/>
+				 </div>
+				 	<div class="fieldcontain">
+					 <label>Correo: </label>
+					 <g:textField name="correo"/><br/>
+				 </div>
+				 	<div class="fieldcontain">
+					 <label> Hobbies: </label><br/>
+					 <div style="float:left;margin-left: 26%;">
+						 <g:checkBox name="hobbies" value="${false}" /> Deporte
+						 <g:checkBox name="hobbies" value="${true}" /> Arte
+						 <g:checkBox name="hobbies" value="${false}" /> Musica
+						 <g:checkBox name="hobbies" value="${true}" /> Moda
+						 <g:checkBox name="hobbies" value="${false}" /> Ninguno<br/>
+					 </div></div><br/><br/>
+				<div class="fieldcontain">
+							<label>Personalidad: </label>
+							<g:textArea name="name" value="${value}" rows="5" cols="40" />
+				</fieldset></div>
+				<fieldset class="buttons">
+					 <g:actionSubmit class="save" value="Save"/>
+				</fieldset>
+			 </g:form>
+  		<!--<g:form url="[resource:pruebaformularioInstance, action:'save']" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
-			</g:form>
+			</g:form>-->
 		</div>
 	</body>
 </html>

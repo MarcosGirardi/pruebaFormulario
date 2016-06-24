@@ -15,7 +15,7 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div></div>
-		<div style="width:76%; border:1px solid #FF0000; float:right">
+		<div style="width:76%;float:right">
 		<div id="list-pruebaformulario" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

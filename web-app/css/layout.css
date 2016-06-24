@@ -187,7 +187,10 @@ margin: 0 5px;
 }
 
 /* Sidebar */
-
+#aside{
+  background: #ddd;
+  height: auto;
+}
 aside#sidebar {
 width: 23%;
 background: #E0E0E3 url(../images/sidebar.png) repeat;
@@ -677,8 +680,81 @@ overflow-x:hidden;
 overflow-y: scroll;
 }
 
-/* New/Edit Article Module */
+/* FORMULARIOS STYLES */
+fieldset,
+.property-list {
+	margin: 0.6em 1.25em 0 1.25em;
+	padding: 0.3em 1.8em 1.25em;
+	position: relative;
+	zoom: 1;
+	border: none;
+}
 
+.property-list .fieldcontain {
+	list-style: none;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.fieldcontain {
+	margin-top: 1em;
+}
+
+.fieldcontain label,
+.fieldcontain .property-label {
+	color: #666666;
+	text-align: right;
+	width: 25%;
+}
+
+.fieldcontain .property-label {
+	float: left;
+}
+
+.fieldcontain .property-value {
+	display: block;
+	margin-left: 27%;
+}
+
+label {
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 0.25em 0 0;
+}
+.buttons .textField,
+.buttons a {
+	background-color: transparent;
+	border: 0;
+	color: #666666;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 0.25em 0;
+	overflow: visible;
+	padding: 0.25em 0.7em;
+	text-decoration: none;
+
+	   -moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	        border-radius: 0.3em;
+}
+
+.textField, select, .textArea {
+	background-color: #fcfcfc;
+	border: 1px solid #cccccc;
+	font-size: 1em;
+	padding: 0.2em 0.4em;
+}
+.textField:focus, select:focus, .textArea:focus {
+	background-color: #ffffff;
+	border: 1px solid #eeeeee;
+	outline: 0;
+	   -moz-box-shadow: 0 0 0.5em #ffffff;
+	-webkit-box-shadow: 0 0 0.5em #ffffff;
+	        box-shadow: 0 0 0.5em #ffffff;
+}
+
+
+/*
 fieldset {
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
@@ -775,7 +851,7 @@ border: 1px solid #bbb;
 height: 20px;
 color: #666666;
 }
-
+*/
 #main .module_content h1 {
 color: #333333;
 text-transform: none;

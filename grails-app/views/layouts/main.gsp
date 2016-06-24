@@ -73,7 +73,7 @@
 				<p><strong>Copyright &copy; 2016 Área de sistemas</strong></p>
 			</footer>
 </aside>
-		<div style="width:76%; border:1px solid #000; float:right">
+		<div style="width:76%; float:left;margin-left: 1px;">
 	<!--	<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>-->
 		<g:layoutBody/>
 	<!--	<div class="footer" role="contentinfo"></div>-->
