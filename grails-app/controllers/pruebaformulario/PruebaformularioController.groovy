@@ -27,7 +27,6 @@ class PruebaformularioController {
 //--------------------------------POST Method-----------------------------------
     def save(def parametros) {
       log.printlm("llega un request al POST")
-      def parametros = request.JSON
       def formulario
       def error
 
@@ -97,7 +96,7 @@ class PruebaformularioController {
         respond pruebaformularioInstance
     }
 
-    @Transactional
+    //@Transactional
     def update(Pruebaformulario pruebaformularioInstance) {
         if (pruebaformularioInstance == null) {
             notFound()
@@ -120,7 +119,7 @@ class PruebaformularioController {
         }
     }
 
-    @Transactional
+    //@Transactional
     def delete(Pruebaformulario pruebaformularioInstance) {
 
         if (pruebaformularioInstance == null) {
