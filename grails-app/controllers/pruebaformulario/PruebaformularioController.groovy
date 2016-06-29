@@ -27,6 +27,7 @@ class PruebaformularioController {
 //--------------------------------POST Method-----------------------------------
     def save(def parametros) {
       log.printlm("llega un request al POST")
+      def parametros = request.JSON
       def formulario
       def error
 
@@ -37,15 +38,19 @@ class PruebaformularioController {
       } catch (Exception v){
         log.println("error en validacion")
         error = v.getMessage()
+        log.println("${error}")
       }
 
-      try {
-        log.println("guardando")
-        formularioService.guardar(parametros)
-        log.println("guardado")
-      } catch (Exception s){
-        log.println("error en guardado")
-        error = s.getMessage()
+      if (!error){
+        try {
+          log.println("guardando")
+          formularioService.guardar(parametros)
+          log.println("guardado")
+        } catch (Exception s){
+          log.println("error en guardado")
+          error = s.getMessage()
+          log.println("${error}")
+        }
       }
 
       if (formulario){
@@ -59,7 +64,15 @@ class PruebaformularioController {
           '*' { respond formulario, [status: CREATED] }
         }
       } else {
-
+        log.println ("error")
+        response.status = 500
+        request.withFormat {
+          form multipartForm {
+            flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
+            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
+          }
+          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+        }
       }
 
       //-----------------------------Sin Uso------------------------------------
