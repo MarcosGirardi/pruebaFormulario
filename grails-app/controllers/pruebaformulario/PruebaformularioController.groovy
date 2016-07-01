@@ -43,7 +43,7 @@ class PruebaformularioController {
       if (!error){
         try {
           log.println("guardando")
-          formularioService.guardar(parametros)
+          formulario = Service.guardar(parametros)
           log.println("guardado")
         } catch (Exception s){
           log.println("error en guardado")
