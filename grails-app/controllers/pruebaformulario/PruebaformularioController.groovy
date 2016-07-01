@@ -5,7 +5,7 @@ package pruebaformulario
 import grails.converters.*
 
 class PruebaformularioController {
-  def formularioService
+  def pruebaformularioService
   def validationService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

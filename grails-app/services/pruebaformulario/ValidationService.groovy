@@ -11,22 +11,19 @@ class ValidationService {
     String message
 
     if(!params.fechaNac){
-      message = "Falta fecha de nacimiento"
-      throw new Exception (message)
+      message = message + "Falta fecha de nacimiento;"
     }
-
     if(!params.genero){
-      message = "Falta genero"
-      throw new Exception (message)
+      message = message + "Falta genero;"
     }
-
     if(!params.dni){
-      message = "Falta DNI"
-      throw new Exception (message)
+      message = message + "Falta DNI;"
+    }
+    if(!params.correo){
+      message = message + "Falta correo"
     }
 
-    if(!params.correo){
-      message = "Falta correo"
+    if(message){
       throw new Exception (message)
     }
 
