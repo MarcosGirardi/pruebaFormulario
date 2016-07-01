@@ -96,19 +96,9 @@ class PruebaformularioController {
         respond pruebaformularioInstance
     }
 
-    //@Transactional
+//------------------------------PUT Method--------------------------------------
     def update(Pruebaformulario pruebaformularioInstance) {
-        if (pruebaformularioInstance == null) {
-            notFound()
-            return
-        }
 
-        if (pruebaformularioInstance.hasErrors()) {
-            respond pruebaformularioInstance.errors, view:'edit'
-            return
-        }
-
-        pruebaformularioInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -117,7 +107,24 @@ class PruebaformularioController {
             }
             '*'{ respond pruebaformularioInstance, [status: OK] }
         }
+
+      //-------------------------------Sin Uso----------------------------------
+      /*
+      if (pruebaformularioInstance == null) {
+          notFound()
+          return
+      }
+
+      if (pruebaformularioInstance.hasErrors()) {
+          respond pruebaformularioInstance.errors, view:'edit'
+          return
+      }
+
+      pruebaformularioInstance.save flush:true
+      */
+
     }
+//------------------------------------------------------------------------------
 
     //@Transactional
     def delete(Pruebaformulario pruebaformularioInstance) {
