@@ -39,7 +39,7 @@ class PruebaformularioController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.dni])
                 redirect pruebaformularioInstance
             }
             '*' { respond pruebaformularioInstance, [status: CREATED] }
