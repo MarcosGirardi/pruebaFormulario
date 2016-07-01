@@ -30,10 +30,7 @@ class ValidationService {
       throw new Exception (message)
     }
 
-    if(!params.hobbies){
-      message = "Elija por lo menos 1 hobby"
-      throw new Exception (message)
-    }
-
   }
+//------------------------------------------------------------------------------
+
 }
