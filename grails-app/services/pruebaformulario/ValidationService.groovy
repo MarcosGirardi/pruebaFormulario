@@ -26,13 +26,16 @@ class ValidationService {
     if (message1){message = message + message1}
     if (message2){
       if (message){message = message + "\n" + message2}
-    }else {message = message + message2}
+      else {message = message + message2}
+    }
     if (message3){
       if (message){message = message + "\n" + message3}
-    } else {message = message + message3}
+      else {message = message + message3}
+    }
     if (message4){
       if (message){message = message + "\n" + message4}
-    }else {message = message + message4}
+      else {message = message + message4}
+    }
 
     if(message){
       throw new Exception (message)
