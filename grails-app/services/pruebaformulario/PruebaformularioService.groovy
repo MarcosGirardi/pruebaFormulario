@@ -13,7 +13,7 @@ class PruebaformularioService {
       form.genero = params.genero
       form.dni = params.dni
       form.correo = params.correo
-      if (!params.personalidad){
+      if (params.personalidad){
         form.personalidad = params.personalidad
       } else{
         form.personalidad = "Sin Datos"
