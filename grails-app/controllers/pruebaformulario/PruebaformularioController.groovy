@@ -12,6 +12,8 @@ class PruebaformularioController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+//-----------------------------------Listar-------------------------------------
     def index(Integer max) {
       log.println("---------------------------------------------")
       log.println("llega un request al Listar")
@@ -36,15 +38,22 @@ class PruebaformularioController {
       }
 
     }
+//------------------------------------------------------------------------------
 
+
+//--------------------------------GET Method------------------------------------
     def show(Pruebaformulario pruebaformularioInstance) {
         respond pruebaformularioInstance
     }
+//------------------------------------------------------------------------------
+
 
     def create() {
         respond new Pruebaformulario(params)
     }
+    
 
+//-----------------------------------POST Method--------------------------------
     @Transactional
     def save(Pruebaformulario pruebaformularioInstance) {
         if (pruebaformularioInstance == null) {
@@ -67,11 +76,15 @@ class PruebaformularioController {
             '*' { respond pruebaformularioInstance, [status: CREATED] }
         }
     }
+//------------------------------------------------------------------------------
+
 
     def edit(Pruebaformulario pruebaformularioInstance) {
         respond pruebaformularioInstance
     }
 
+
+//--------------------------------PUT Method------------------------------------
     @Transactional
     def update(Pruebaformulario pruebaformularioInstance) {
         if (pruebaformularioInstance == null) {
@@ -94,7 +107,10 @@ class PruebaformularioController {
             '*'{ respond pruebaformularioInstance, [status: OK] }
         }
     }
+//------------------------------------------------------------------------------
 
+
+//---------------------------------DELET Method---------------------------------
     @Transactional
     def delete(Pruebaformulario pruebaformularioInstance) {
 
@@ -113,6 +129,8 @@ class PruebaformularioController {
             '*'{ render status: NO_CONTENT }
         }
     }
+//------------------------------------------------------------------------------
+
 
     protected void notFound() {
         request.withFormat {

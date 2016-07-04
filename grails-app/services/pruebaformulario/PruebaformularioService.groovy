@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class PruebaformularioService {
 
+//--------------------------------LISTAR----------------------------------------
     def listar() {
       def forms
       def f = Pruebaformulario.createCriteria()
@@ -19,4 +20,10 @@ class PruebaformularioService {
       forms
 
     }
+//------------------------------------------------------------------------------
+
+
+//-------------------------------MOSTRAR----------------------------------------
+
+//------------------------------------------------------------------------------
 }
