@@ -11,8 +11,33 @@ class PruebaformularioController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+      log.println("llega un request al Index")
+      def formularios
+      def error
+
+      try {
+        log.println("se van a buscar todos los formularios")
+        formularios = Pruebaformulario.listar()
+        log.println("formularios buscados")
+      } catch (Exception l){
+        log.println("error al buscar todos los formularios")
+        error = l.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
         params.max = Math.min(max ?: 10, 100)
         respond Pruebaformulario.list(params), model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
+      } else{
+        request.withFormat {
+          form multipartForm {
+            flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
+            redirect action:"index", method:"GET"
+          }
+          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+        }
+      }
+
     }
 
 //---------------------------------GET Method-----------------------------------
