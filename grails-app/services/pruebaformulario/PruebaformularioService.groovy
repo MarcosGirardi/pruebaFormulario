@@ -40,7 +40,7 @@ class PruebaformularioService {
 
 //--------------------------------Form Update-----------------------------------
   def modificar(def params){
-    def form = pruebaFormulario.findById(params.id)
+    def form = PruebaFormulario.findById(params.id)
 
     if (form){
       form.apellido = params.apellido
@@ -74,6 +74,21 @@ class PruebaformularioService {
 
     form
 
+  }
+//------------------------------------------------------------------------------
+
+//--------------------------------Form Delete-----------------------------------
+  def borrar(def params){
+    def form = Pruebaformulario.findById(params.id)
+
+    if (form){
+      log.println("se va a borrar")
+      form.delete(flush:true)
+      log.println("se borró")
+    } catch (Exception d){
+      log.println ("error al intentar borrar")
+      throw new Exception (u.getMessage())
+    }
   }
 //------------------------------------------------------------------------------
 }
