@@ -3,9 +3,9 @@ package pruebaformulario
 class Pruebaformulario {
 
   String apellido
-  Date fechaNac
+  Date fechaNac = new Date()
   String genero
-  Integer dni
+  String dni
   String correo
   String personalidad
   String hobbies
@@ -14,8 +14,8 @@ class Pruebaformulario {
         apellido(maxSize:50,blank:false)
         fechaNac(nullable:true)
         genero(inList:["M", "F"])
-        dni(blank:false)
-        correo(maxSize:50,email:true)
+        dni(nullable:true, maxSize:8, minSize:8)
+        correo(maxSize:50,email:true,nullable:true)
         personalidad(nullable:true)
         hobbies(nullable:true)
   }
