@@ -113,4 +113,22 @@ class PruebaformularioService {
 
   }
 //------------------------------------------------------------------------------
+
+//-----------------------------------Form List----------------------------------
+  def listar(){
+    def forms
+
+    try {
+      log.println("se va a listar")
+      forms = Pruebaformulario.findAllOrderBy("apellido")
+      log.println("se listó")
+    } catch (Exception l){
+      log.println("error al listar")
+      throw new Exception (l.getMessage())
+    }
+
+    forms
+
+  }
+//------------------------------------------------------------------------------
 }
