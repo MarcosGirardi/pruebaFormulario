@@ -32,6 +32,8 @@ class PruebaformularioController {
         params.max = Math.min(max ?: 10, 100)
         respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
       } else{
+        log.println ("error")
+        response.status = 500
         request.withFormat {
           form multipartForm {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
