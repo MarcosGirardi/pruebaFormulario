@@ -28,7 +28,7 @@ class PruebaformularioController {
 
       if (!error){
         params.max = Math.min(max ?: 10, 100)
-        respond Pruebaformulario.list(params), model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
+        respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
       } else{
         request.withFormat {
           form multipartForm {
