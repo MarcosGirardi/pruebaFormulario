@@ -15,9 +15,40 @@ class PruebaformularioController {
         respond Pruebaformulario.list(params), model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
     }
 
+//---------------------------------GET Method-----------------------------------
     def show(Pruebaformulario pruebaformularioInstance) {
-        respond pruebaformularioInstance
+      log.println("llega un request al GET")
+      def formulario
+      def error
+
+      try{
+        log.println("buscando")
+        Pruebaformulario.mostrar(params)
+        log.println("encontrado")
+      } catch (Exception m){
+        log.println("error al buscar")
+        error = m.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        log.println("formulario encontrado")
+        response.status = 201
+        respond formulario
+      } else{
+        log.println ("error")
+        response.status = 500
+        request.withFormat {
+          form multipartForm {
+            flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
+            redirect action:"index", method:"GET"
+          }
+          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+        }
+      }
+
     }
+//------------------------------------------------------------------------------
 
     def create() {
         respond new Pruebaformulario(params)
