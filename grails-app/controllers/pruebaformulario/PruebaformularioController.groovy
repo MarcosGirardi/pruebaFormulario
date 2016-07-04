@@ -68,7 +68,7 @@ class PruebaformularioController {
         request.withFormat {
           form multipartForm {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
-            redirect(controller: "pruebaFormulario", action: "edit", params: parametros.id)
+            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
           }
           '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
@@ -117,9 +117,9 @@ class PruebaformularioController {
           log.println("modificando")
           formulario = pruebaformularioService.modificar(parametros)
           log.println("modificado")
-        } catch (Exception s){
+        } catch (Exception u){
           log.println("error en modificar")
-          error = s.getMessage()
+          error = u.getMessage()
           log.println("${error}")
         }
       }
@@ -140,7 +140,7 @@ class PruebaformularioController {
         request.withFormat {
           form multipartForm {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
-            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
+            redirect(controller: "pruebaFormulario", action: "edit", params: parametros.id)
           }
           '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
@@ -165,22 +165,53 @@ class PruebaformularioController {
 //------------------------------------------------------------------------------
 
 //-------------------------------DELETE Method----------------------------------
-    def delete(Pruebaformulario pruebaformularioInstance) {
+    def delete(def parametros) {  //Pruebaformulario pruebaformularioInstance
+      log.println("llega un request al DELET")
+      def error
 
+      try {
+        log.println("borrando")
+        pruebaformularioService.borrar(parametros)
+        log.println("borrado")
+      } catch (Exception d){
+        log.println("error en borrar")
+        error = d.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        log.println("formulario borrado")
+        response.status = 201
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: DELETED }
+        }
+      } else {
+        log.println ("error")
+        response.status = 500
+        request.withFormat {
+          form multipartForm {
+            flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
+            redirect(controller: "pruebaFormulario", action: "show", params: parametros.id)
+          }
+          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+        }
+      }
+
+        //-------------------------------Sin Uso--------------------------------
+        /*
         if (pruebaformularioInstance == null) {
             notFound()
             return
         }
 
         pruebaformularioInstance.delete flush:true
+        */
+        //----------------------------------------------------------------------
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
     }
 //------------------------------------------------------------------------------
 
