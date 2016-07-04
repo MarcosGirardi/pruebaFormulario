@@ -7,6 +7,7 @@ class PruebaformularioService {
 
 //------------------------------Form Save---------------------------------------
     def guardar(def params) {
+      log.println("guardar(); PruebaformularioService")
       Pruebaformulario form
       form.apellido = params.apellido
       form.fechaNac = params.fechaNac
@@ -40,6 +41,7 @@ class PruebaformularioService {
 
 //--------------------------------Form Update-----------------------------------
   def modificar(def params){
+    log.println("modificar(); PruebaformularioService")
     def form = PruebaFormulario.findById(params.id)
 
     if (form){
@@ -79,6 +81,7 @@ class PruebaformularioService {
 
 //--------------------------------Form Delete-----------------------------------
   def borrar(def params){
+    log.println("borrar(); PruebaformularioService")
     def form = Pruebaformulario.findById(params.id)
 
     if (form){
