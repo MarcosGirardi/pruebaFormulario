@@ -10,6 +10,7 @@ class PruebaformularioController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+//------------------------------Listar Method-----------------------------------
     def index(Integer max) {
       log.println("llega un request al Index")
       def formularios
@@ -39,6 +40,8 @@ class PruebaformularioController {
       }
 
     }
+//------------------------------------------------------------------------------
+
 
 //---------------------------------GET Method-----------------------------------
     def show(Pruebaformulario pruebaformularioInstance) {
@@ -74,6 +77,7 @@ class PruebaformularioController {
 
     }
 //------------------------------------------------------------------------------
+
 
     def create() {
         respond new Pruebaformulario(params)
@@ -148,9 +152,11 @@ class PruebaformularioController {
     }
 //------------------------------------------------------------------------------
 
+
     def edit(Pruebaformulario pruebaformularioInstance) {
         respond pruebaformularioInstance
     }
+
 
 //------------------------------PUT Method--------------------------------------
     def update(def parametros) {
@@ -220,6 +226,7 @@ class PruebaformularioController {
     }
 //------------------------------------------------------------------------------
 
+
 //-------------------------------DELETE Method----------------------------------
     def delete(def parametros) {  //Pruebaformulario pruebaformularioInstance
       log.println("llega un request al DELET")
@@ -270,6 +277,7 @@ class PruebaformularioController {
 
     }
 //------------------------------------------------------------------------------
+
 
     protected void notFound() {
         request.withFormat {
