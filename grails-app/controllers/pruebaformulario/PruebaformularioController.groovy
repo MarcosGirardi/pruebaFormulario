@@ -12,6 +12,7 @@ class PruebaformularioController {
 
 //------------------------------Listar Method-----------------------------------
     def index(Integer max) {
+      log.println("-----------------------------")
       log.println("llega un request al Index")
       def formularios
       def error
@@ -27,7 +28,7 @@ class PruebaformularioController {
       }
 
       if (!error){
-        log.println("formulario listados")
+        log.println("listado de formularios")
         response.status = 201
         params.max = Math.min(max ?: 10, 100)
         respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
@@ -41,7 +42,6 @@ class PruebaformularioController {
           }
           '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
-      }
 
     }
 //------------------------------------------------------------------------------
@@ -49,14 +49,15 @@ class PruebaformularioController {
 
 //---------------------------------GET Method-----------------------------------
     def show(Pruebaformulario pruebaformularioInstance) {
+      log.println("-----------------------------")
       log.println("llega un request al GET")
       def formulario
       def error
 
       try{
-        log.println("buscando")
+        log.println("se va a buscar")
         formulario = Pruebaformulario.mostrar(params)
-        log.println("encontrado")
+        log.println("se buscó")
       } catch (Exception m){
         log.println("error al buscar")
         error = m.getMessage()
@@ -90,6 +91,7 @@ class PruebaformularioController {
 
 //--------------------------------POST Method-----------------------------------
     def save(def parametros) {
+      log.println("-----------------------------")
       log.println("llega un request al POST")
       def formulario
       def error
@@ -164,6 +166,7 @@ class PruebaformularioController {
 
 //------------------------------PUT Method--------------------------------------
     def update(def parametros) {
+      log.println("-----------------------------")
       log.println("llega un request al PUT")
       def formulario
       def error
@@ -233,6 +236,7 @@ class PruebaformularioController {
 
 //-------------------------------DELETE Method----------------------------------
     def delete(def parametros) {  //Pruebaformulario pruebaformularioInstance
+      log.println("-----------------------------")
       log.println("llega un request al DELET")
       def error
 

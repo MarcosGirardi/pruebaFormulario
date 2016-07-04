@@ -43,7 +43,16 @@ class PruebaformularioService {
 //--------------------------------Form Update-----------------------------------
   def modificar(def params){
     log.println("modificar(); PruebaformularioService")
-    def form = PruebaFormulario.findById(params.id)
+    def form
+
+    try {
+      log.println("se va a buscar")
+      form = PruebaFormulario.findById(params.id)
+      log.println("se buscó")
+    } catch (Exception b){
+      log.println ("error al buscar")
+      throw new Exception (b.getMessage())
+    }
 
     if (form){
       form.apellido = params.apellido
@@ -84,7 +93,15 @@ class PruebaformularioService {
 //--------------------------------Form Delete-----------------------------------
   def borrar(def params){
     log.println("borrar(); PruebaformularioService")
-    def form = Pruebaformulario.findById(params.id)
+    def form
+    try {
+      log.println("se va a buscar")
+      form = Pruebaformulario.findById(params.id)
+      log.println("se buscó")
+    } catch (Exception b){
+      log.println ("error al buscar")
+      throw new Exception (b.getMessage())
+    }
 
     if (form){
       log.println("se va a borrar")
@@ -93,7 +110,11 @@ class PruebaformularioService {
     } catch (Exception d){
       log.println ("error al intentar borrar")
       throw new Exception (u.getMessage())
+    } else{
+      message = "no existe el formulario"
+      throw new Exception (message)
     }
+
   }
 //------------------------------------------------------------------------------
 
@@ -106,7 +127,7 @@ class PruebaformularioService {
     try{
       log.println("buscando")
       form = Pruebaformulario.findById(params)
-      log.println("encontrado")
+      log.println("buscado")
     } catch (Exception m){
       log.println("error al buscar")
       throw new Exception (m.getMessage())
@@ -120,6 +141,7 @@ class PruebaformularioService {
 
 //-----------------------------------Form List----------------------------------
   def listar(){
+    log.println("listar(); PruebaformularioService")
     def forms
 
     try {
