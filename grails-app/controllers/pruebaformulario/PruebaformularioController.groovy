@@ -27,6 +27,8 @@ class PruebaformularioController {
       }
 
       if (!error){
+        log.println("formulario listados")
+        response.status = 201
         params.max = Math.min(max ?: 10, 100)
         respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
       } else{
