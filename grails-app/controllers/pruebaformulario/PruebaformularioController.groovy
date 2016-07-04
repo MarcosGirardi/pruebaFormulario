@@ -43,7 +43,7 @@ class PruebaformularioController {
       if (!error){
         try {
           log.println("guardando")
-          formulario = Service.guardar(parametros)
+          formulario = pruebaformularioService.guardar(parametros)
           log.println("guardado")
         } catch (Exception s){
           log.println("error en guardado")
@@ -68,7 +68,7 @@ class PruebaformularioController {
         request.withFormat {
           form multipartForm {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
-            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
+            redirect(controller: "pruebaFormulario", action: "edit", params: parametros.id)
           }
           '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
@@ -97,16 +97,56 @@ class PruebaformularioController {
     }
 
 //------------------------------PUT Method--------------------------------------
-    def update(Pruebaformulario pruebaformularioInstance) {
+    def update(def parametros) {
+      log.printlm("llega un request al PUT")
+      def formulario
+      def error
 
+      try {
+        log.println("validacion")
+        validationService.validate(parametros)
+        log.println("paso las validaciones")
+      } catch (Exception v){
+        log.println("error en validacion")
+        error = v.getMessage()
+        log.println("${error}")
+      }
 
+      if (!error){
+        try {
+          log.println("modificando")
+          formulario = pruebaformularioService.modificar(parametros)
+          log.println("modificado")
+        } catch (Exception s){
+          log.println("error en modificar")
+          error = s.getMessage()
+          log.println("${error}")
+        }
+      }
+
+      if (formulario){
+        println("formulario modificado")
+        response.status = 201
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
                 redirect pruebaformularioInstance
             }
-            '*'{ respond pruebaformularioInstance, [status: OK] }
+            '*'{ respond pruebaformularioInstance, [status: UPDATED] }
         }
+      } else {
+        log.println ("error")
+        response.status = 500
+        request.withFormat {
+          form multipartForm {
+            flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
+            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
+          }
+          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+        }
+      }
+
+
 
       //-------------------------------Sin Uso----------------------------------
       /*
