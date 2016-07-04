@@ -94,4 +94,23 @@ class PruebaformularioService {
     }
   }
 //------------------------------------------------------------------------------
+
+//---------------------------------Form Serach----------------------------------
+  def buscar(def params){
+    log.println("buscar(); PruebaformularioService")
+    def form
+
+    try{
+      log.println("buscando")
+      form = Pruebaformulario.findById(params)
+      log.println("encontrado")
+    } catch (Exception m){
+      log.println("error al buscar")
+      throw new Exception (m.getMessage())
+    }
+
+    form
+
+  }
+//------------------------------------------------------------------------------
 }

@@ -23,7 +23,7 @@ class PruebaformularioController {
 
       try{
         log.println("buscando")
-        Pruebaformulario.mostrar(params)
+        formulario = Pruebaformulario.mostrar(params)
         log.println("encontrado")
       } catch (Exception m){
         log.println("error al buscar")
