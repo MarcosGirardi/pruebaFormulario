@@ -1,7 +1,5 @@
 package pruebaformulario
 
-//import static org.springframework.http.HttpStatus.*
-//import grails.transaction.Transactional
 import grails.converters.*
 
 class PruebaformularioController {
@@ -19,7 +17,7 @@ class PruebaformularioController {
 
       try {
         log.println("se van a buscar todos los formularios")
-        formularios = Pruebaformulario.listar()
+        formularios = pruebaformularioService.listar()
         log.println("formularios buscados")
       } catch (Exception l){
         log.println("error al buscar todos los formularios")
@@ -40,15 +38,16 @@ class PruebaformularioController {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
             redirect action:"index", method:"GET"
           }
-          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+          //'*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
-
     }
+
+  }
 //------------------------------------------------------------------------------
 
 
 //---------------------------------GET Method-----------------------------------
-    def show(Pruebaformulario pruebaformularioInstance) {
+    def show(def params) {
       log.println("-----------------------------")
       log.println("llega un request al GET")
       def formulario
@@ -56,7 +55,7 @@ class PruebaformularioController {
 
       try{
         log.println("se va a buscar")
-        formulario = Pruebaformulario.mostrar(params)
+        formulario = PruebaformularioService.mostrar(params)
         log.println("se buscó")
       } catch (Exception m){
         log.println("error al buscar")
@@ -76,7 +75,7 @@ class PruebaformularioController {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
             redirect action:"index", method:"GET"
           }
-          '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
+
         }
       }
 
@@ -90,7 +89,7 @@ class PruebaformularioController {
 
 
 //--------------------------------POST Method-----------------------------------
-    def save(def parametros) {
+    def save(def params) {
       log.println("-----------------------------")
       log.println("llega un request al POST")
       def formulario
@@ -98,7 +97,7 @@ class PruebaformularioController {
 
       try {
         log.println("validacion")
-        validationService.validate(parametros)
+        validationService.validate(params)
         log.println("paso las validaciones")
       } catch (Exception v){
         log.println("error en validacion")
@@ -109,7 +108,7 @@ class PruebaformularioController {
       if (!error){
         try {
           log.println("guardando")
-          formulario = pruebaformularioService.guardar(parametros)
+          formulario = pruebaformularioService.guardar(params)
           log.println("guardado")
         } catch (Exception s){
           log.println("error en guardado")
@@ -130,11 +129,12 @@ class PruebaformularioController {
         }
       } else {
         log.println ("error")
+        log.println ("${params.fechaNac}")
         response.status = 500
         request.withFormat {
           form multipartForm {
             flash.message = message(code: "${error}", args: [message(code: 'formulario.label', default: 'Pruebaformulario')])
-            redirect(controller: "pruebaFormulario", action: "create", params: parametros)
+            redirect(controller: "pruebaformulario", action: "create", params: params)
           }
           '*' { respond pruebaFormulario, [status: INTERNAL_SERVER_ERROR] }
         }
@@ -296,4 +296,5 @@ class PruebaformularioController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
 }

@@ -8,7 +8,7 @@ class PruebaformularioService {
 //------------------------------Form Save---------------------------------------
     def guardar(def params) {
       log.println("guardar(); PruebaformularioService")
-      Pruebaformulario form
+      def form = new Pruebaformulario()
       form.apellido = params.apellido
       form.fechaNac = params.fechaNac
       form.genero = params.genero
@@ -24,7 +24,7 @@ class PruebaformularioService {
       } else{
         form.hobbies = "Sin Datos"
       }
-
+/*
       try{
         log.println("se va a guardar")
         form.save(flush:true)
@@ -32,7 +32,11 @@ class PruebaformularioService {
       } catch (Exception s){
         log.println("error al intentar guardar")
         throw new Exception (s.getMessage())
-      }
+      }*/
+
+      if (!form.save(flush:true)) {
+      log.error(form.errors)
+    }
 
       form
 
@@ -104,12 +108,14 @@ class PruebaformularioService {
     }
 
     if (form){
-      log.println("se va a borrar")
-      form.delete(flush:true)
-      log.println("se borró")
-    } catch (Exception d){
-      log.println ("error al intentar borrar")
-      throw new Exception (u.getMessage())
+      try {
+        log.println("se va a borrar")
+        form.delete(flush:true)
+        log.println("se borró")
+      } catch (Exception d){
+        log.println ("error al intentar borrar")
+        throw new Exception (u.getMessage())
+      }
     } else{
       message = "no existe el formulario"
       throw new Exception (message)
@@ -120,7 +126,7 @@ class PruebaformularioService {
 
 
 //---------------------------------Form Serach----------------------------------
-  def buscar(def params){
+  def mostrar(def params){
     log.println("buscar(); PruebaformularioService")
     def form
 
@@ -143,10 +149,13 @@ class PruebaformularioService {
   def listar(){
     log.println("listar(); PruebaformularioService")
     def forms
+    def f = Pruebaformulario.createCriteria()
 
     try {
       log.println("se va a listar")
-      forms = Pruebaformulario.findAllOrderBy("apellido")
+      forms = f {
+        order("apellido", "asc")
+      }
       log.println("se listó")
     } catch (Exception l){
       log.println("error al listar")

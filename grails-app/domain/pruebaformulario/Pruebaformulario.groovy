@@ -3,9 +3,9 @@ package pruebaformulario
 class Pruebaformulario {
 
   String apellido
-  Date fechaNac
+  Date fechaNac = new Date()
   String genero
-  Integer dni
+  String dni
   String correo
   String personalidad
   String hobbies
