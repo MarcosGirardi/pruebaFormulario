@@ -146,8 +146,6 @@ class PruebaformularioController {
         }
       }
 
-
-
       //-------------------------------Sin Uso----------------------------------
       /*
       if (pruebaformularioInstance == null) {
@@ -166,7 +164,7 @@ class PruebaformularioController {
     }
 //------------------------------------------------------------------------------
 
-    //@Transactional
+//-------------------------------DELETE Method----------------------------------
     def delete(Pruebaformulario pruebaformularioInstance) {
 
         if (pruebaformularioInstance == null) {
@@ -184,6 +182,7 @@ class PruebaformularioController {
             '*'{ render status: NO_CONTENT }
         }
     }
+//------------------------------------------------------------------------------
 
     protected void notFound() {
         request.withFormat {
