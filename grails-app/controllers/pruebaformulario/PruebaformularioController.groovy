@@ -26,7 +26,7 @@ class PruebaformularioController {
 
 //--------------------------------POST Method-----------------------------------
     def save(def parametros) {
-      log.printlm("llega un request al POST")
+      log.println("llega un request al POST")
       def formulario
       def error
 
@@ -98,7 +98,7 @@ class PruebaformularioController {
 
 //------------------------------PUT Method--------------------------------------
     def update(def parametros) {
-      log.printlm("llega un request al PUT")
+      log.println("llega un request al PUT")
       def formulario
       def error
 
@@ -125,7 +125,7 @@ class PruebaformularioController {
       }
 
       if (formulario){
-        println("formulario modificado")
+        log.println("formulario modificado")
         response.status = 201
         request.withFormat {
             form multipartForm {

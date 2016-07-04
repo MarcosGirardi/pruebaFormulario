@@ -37,4 +37,43 @@ class PruebaformularioService {
 
     }
 //------------------------------------------------------------------------------
+
+//--------------------------------Form Update-----------------------------------
+  def modificar(def params){
+    def form = pruebaFormulario.findById(params.id)
+
+    if (form){
+      form.apellido = params.apellido
+      form.fechaNac = params.fechaNac
+      form.genero = params.genero
+      form.dni = params.dni
+      form.correo = params.correo
+      if (params.personalidad){
+        form.personalidad = params.personalidad
+      } else{
+        form.personalidad = "Sin Datos"
+      }
+      if (params.hobbies){
+        form.hobbies = params.hobbies
+      } else{
+        form.hobbies = "Sin Datos"
+      }
+    } else{
+      message = "no existe el formulario"
+      throw new Exception (message)
+    }
+
+    try{
+      log.println("se va a modificar")
+      form.save(flush:true)
+      log.println("se modificó")
+    } catch (Exception u){
+      log.println ("error al intentar modificar")
+      throw new Exception (u.getMessage())
+    }
+
+    form
+
+  }
+//------------------------------------------------------------------------------
 }
