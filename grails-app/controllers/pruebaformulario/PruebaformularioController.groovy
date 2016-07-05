@@ -61,13 +61,7 @@ class PruebaformularioController {
       if (!error){
         respond formulario
       } else {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.error.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: INTERNAL_SERVER_ERROR }
-        }
+        redirect (action:"index", params: [error: "${error}"])
       }
 
     }
