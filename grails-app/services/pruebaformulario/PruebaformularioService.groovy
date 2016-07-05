@@ -57,4 +57,43 @@ class PruebaformularioService {
 
   }
 //------------------------------------------------------------------------------
+
+
+//----------------------------------CREAR---------------------------------------
+  def crear(def params){
+    log.println("crear(${params})")
+    def form = new Pruebaformulario()
+    def error
+
+    form.apellido = params.apellido
+    form.fechaNac = params.fechaNac
+    log.println("${form.fechaNac}")
+    form.genero = params.genero
+    form.dni = params.dni
+    form.correo = params.correo
+    if (params.personalidad){
+      form.personalidad = params.personalidad
+    } else{
+      form.personalidad = Constants.NO_PERSONALITY
+    }
+    if (params.hobbies){
+      form.hobbies = params.hobbies
+    } else{
+      form.hobbies = Constants.NO_HOBBIES
+    }
+
+    try {
+      log.println("se va a guardar")
+      form.save(fĺush:true)
+      log.println("se va guardó")
+    } catch (Exception guardado){
+      log.println("error al guardar")
+      error = guardado.getMessage()
+      throw new Exception (error)
+    }
+
+    form
+
+  }
+//------------------------------------------------------------------------------
 }

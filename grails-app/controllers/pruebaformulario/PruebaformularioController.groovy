@@ -5,7 +5,6 @@ package pruebaformulario
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
 class PruebaformularioController {
   def validationService
   def pruebaformularioService
@@ -74,8 +73,57 @@ class PruebaformularioController {
 
 
 //-----------------------------------POST Method--------------------------------
-    @Transactional
-    def save(Pruebaformulario pruebaformularioInstance) {
+    def save(def params) {  //Pruebaformulario pruebaformularioInstance
+      log.println("---------------------------------------------")
+      log.println("llega un request al post")
+      def formulario
+      def error
+
+      try {
+        log.println("se va a validar")
+        validationService.validate(params)
+        log.println("Se validó")
+      } catch (Exception validar){
+        log.println("error al validar")
+        error = validar.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        try {
+          log.println("se va a crear")
+          formulario = pruebaformularioService.crear(params)
+          log.println("Se creó")
+        } catch (Exception crear){
+          log.println("error al crear")
+          error = crear.getMessage()
+          log.println("${error}")
+        }
+      }
+
+      if (formulario){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
+                redirect formulario
+            }
+            '*' { respond pruebaformularioInstance, [status: CREATED] }
+        }
+      } else{
+        request.withFormat {
+
+            form multipartForm {
+                flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+                redirect(controller: "pruebaformulario", action: "create", params: [apellido:"${params.apellido}", genero:"${params.genero}", dni:"${params.dni}", correo:"${params.correo}", personalidad:"${params.personalidad}", hobbies:"${params.hobbies}"])
+            }
+            '*' { respond pruebaformularioInstance, [status: CREATED] }
+        }
+      }
+
+
+
+        //-----------------------------Sin Uso----------------------------------
+        /*
         if (pruebaformularioInstance == null) {
             notFound()
             return
@@ -87,14 +135,8 @@ class PruebaformularioController {
         }
 
         pruebaformularioInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect pruebaformularioInstance
-            }
-            '*' { respond pruebaformularioInstance, [status: CREATED] }
-        }
+        */
+        //----------------------------------------------------------------------
     }
 //------------------------------------------------------------------------------
 
@@ -105,7 +147,6 @@ class PruebaformularioController {
 
 
 //--------------------------------PUT Method------------------------------------
-    @Transactional
     def update(Pruebaformulario pruebaformularioInstance) {
         if (pruebaformularioInstance == null) {
             notFound()
@@ -131,7 +172,6 @@ class PruebaformularioController {
 
 
 //---------------------------------DELET Method---------------------------------
-    @Transactional
     def delete(Pruebaformulario pruebaformularioInstance) {
 
         if (pruebaformularioInstance == null) {
