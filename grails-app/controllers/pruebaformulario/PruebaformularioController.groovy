@@ -24,9 +24,9 @@ class PruebaformularioController {
         log.println("se van a buscar todos los formularios")
         formularios = pruebaformularioService.listar()
         log.println("se buscaron")
-      } catch (Exception b){
+      } catch (Exception list){
         log.println("error al buscar los formularios")
-        error = b.getMessage()
+        error = list.getMessage()
         log.println("${error}")
       }
 
@@ -42,8 +42,34 @@ class PruebaformularioController {
 
 
 //--------------------------------GET Method------------------------------------
-    def show(Pruebaformulario pruebaformularioInstance) {
-        respond pruebaformularioInstance
+    def show(def params) {  //Pruebaformulario pruebaformularioInstance
+      log.println("---------------------------------------------")
+      log.println("llega un request al show")
+      def formulario
+      def error
+
+      try {
+        log.println("se va a buscar")
+        formulario = pruebaformularioService.mostrar(params)
+        log.println("Se buscó")
+      } catch (Exception show){
+        log.println("error al buscar")
+        error = show.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        respond formulario
+      } else {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.error.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: INTERNAL_SERVER_ERROR }
+        }
+      }
+
     }
 //------------------------------------------------------------------------------
 
@@ -51,7 +77,7 @@ class PruebaformularioController {
     def create() {
         respond new Pruebaformulario(params)
     }
-    
+
 
 //-----------------------------------POST Method--------------------------------
     @Transactional
