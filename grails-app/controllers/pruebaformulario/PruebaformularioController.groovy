@@ -49,7 +49,7 @@ class PruebaformularioController {
 
       try {
         log.println("se va a buscar")
-        formulario = pruebaformularioService.mostrar(params)
+        formulario = pruebaformularioService.mostrar(params, "show")
         log.println("Se buscó")
       } catch (Exception show){
         log.println("error al buscar")
@@ -138,9 +138,30 @@ class PruebaformularioController {
 //------------------------------------------------------------------------------
 
 
-    def edit(Pruebaformulario pruebaformularioInstance) {
-        respond pruebaformularioInstance
+//--------------------------------Edit Method-----------------------------------
+    def edit(def params) {  //Pruebaformulario pruebaformularioInstance
+      log.println("---------------------------------------------")
+      log.println("llega un request al edit")
+      def formulario
+      def error
+
+      try {
+        log.println("se va a buscar")
+        formulario = pruebaformularioService.mostrar(params, "edit")
+        log.println("Se buscó")
+      } catch (Exception edit){
+        log.println("error al buscar")
+        error = edit.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        respond formulario
+      } else {
+        redirect (action:"index", params: [error: "${error}"])
+      }
     }
+//------------------------------------------------------------------------------
 
 
 //--------------------------------PUT Method------------------------------------

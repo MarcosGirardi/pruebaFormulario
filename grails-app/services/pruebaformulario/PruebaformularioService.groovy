@@ -26,8 +26,8 @@ class PruebaformularioService {
 
 
 //-------------------------------MOSTRAR----------------------------------------
-  def mostrar(def params){
-    log.println("mostrar(${params})")
+  def mostrar(def params, def str){
+    log.println("mostrar(${params}; ${str})")
     def form
     def error
 
@@ -40,7 +40,7 @@ class PruebaformularioService {
       throw new Exception (mostrar.getMessage())
     }
 
-    if(form.hobbies){
+    if(form.hobbies && (str == "show")){
       try {
         log.println("se va a formatear hobbies")
         form.hobbies = formatService.hobbiesShow(form.hobbies)
