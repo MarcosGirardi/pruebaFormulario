@@ -9,6 +9,7 @@ class Pruebaformulario {
   String correo
   String personalidad
   String hobbies
+  Boolean borrado
 
   static constraints = {
         apellido(maxSize:50,blank:false)

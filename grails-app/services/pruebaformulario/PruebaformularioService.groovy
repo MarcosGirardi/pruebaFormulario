@@ -14,6 +14,7 @@ class PruebaformularioService {
       try{
         forms = f{
           order("apellido", "asc")
+          eq("borrado", false)
         }
       } catch (Exception b){
         throw new Exception (b.getMessage())
@@ -80,6 +81,7 @@ class PruebaformularioService {
     } else{
       form.hobbies = Constants.NO_HOBBIES
     }
+    form.borrado = false
 
     try {
       log.println("se va a guardar")
@@ -140,14 +142,11 @@ class PruebaformularioService {
   def eliminar(def params){
     log.println("eliminar(${params})")
     def form
-    def nom
     def error
 
     try {
       log.println("se va a buscar")
       form = Pruebaformulario.findById(params.id)
-      nom = form.apellido
-      log.println("${nom}")
       log.println("se va a buscó")
     } catch (Exception buscar){
       log.println("error al buscar")
@@ -158,7 +157,8 @@ class PruebaformularioService {
     if (form){
       try {
         log.println("se va a borrar")
-        form.delete(flush:true)
+        form.borrado = true
+        form.save(flush:true)
         log.println("se va a borró")
       }catch (Exception borrar){
         log.println("error al borrar")
@@ -169,7 +169,7 @@ class PruebaformularioService {
       throw new Exception ("no existe")
     }
 
-    nom
+    form
 
   }
 //------------------------------------------------------------------------------

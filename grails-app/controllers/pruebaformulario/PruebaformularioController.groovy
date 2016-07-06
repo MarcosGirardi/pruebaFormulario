@@ -250,7 +250,7 @@ class PruebaformularioController {
       if (formulario){
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -258,7 +258,7 @@ class PruebaformularioController {
       } else{
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: "${error}", args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario])
+                flash.message = message(code: "${error}", args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
