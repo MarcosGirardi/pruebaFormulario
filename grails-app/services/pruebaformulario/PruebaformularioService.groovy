@@ -41,18 +41,35 @@ class PruebaformularioService {
       throw new Exception (mostrar.getMessage())
     }
 
-    if(form.hobbies && (str == "show")){
-      try {
-        log.println("se va a formatear hobbies")
-        form.hobbies = formatService.hobbiesShow(form.hobbies)
-        log.println("se formatearon los hobbies")
-      } catch (Exception format){
-          log.println("error al formatear")
-          error = format.getMessage()
-          log.println("${error}")
-          throw new Exception (error)
+    switch(str) {
+
+      case "show":
+      if(form.hobbies != Constants.NO_HOBBIES){
+        try {
+          log.println("se va a formatear hobbies")
+          form.hobbies = formatService.hobbiesShow(form.hobbies)
+          log.println("se formatearon los hobbies")
+        } catch (Exception format){
+            log.println("error al formatear")
+            error = format.getMessage()
+            log.println("${error}")
+            throw new Exception (error)
+        }
       }
+      break
+
+      case "edit":
+      if(form.hobbies == Constants.NO_HOBBIES){
+        form.hobbies = null
+      }
+      if(form.personalidad == Constants.NO_PERSONALITY){
+        form.personalidad = null
+      }
+      break
+
     }
+
+
 
     form
 
