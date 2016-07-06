@@ -232,21 +232,51 @@ class PruebaformularioController {
 
 //---------------------------------DELET Method---------------------------------
     def delete(Pruebaformulario pruebaformularioInstance) {
+      log.println("---------------------------------------------")
+      log.println("llega un request al delete")
+      def formulario
+      def error
 
+      try {
+        log.println("se va a eliminar")
+        formulario = pruebaformularioService.eliminar(params)
+        log.println("se va a se eliminó")
+      } catch (Exception delete){
+        log.println("error al eliminar")
+        error = delete.getMessage()
+        log.println("${error}")
+      }
+
+      if (formulario){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+      } else{
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: "${error}", args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+      }
+
+
+
+        //---------------------------Sin Uso------------------------------------
+        /*
         if (pruebaformularioInstance == null) {
             notFound()
             return
         }
 
         pruebaformularioInstance.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        */
+        //----------------------------------------------------------------------
     }
 //------------------------------------------------------------------------------
 

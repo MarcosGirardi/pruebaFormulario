@@ -134,4 +134,43 @@ class PruebaformularioService {
 
   }
 //------------------------------------------------------------------------------
+
+
+//--------------------------------ELIMINAR--------------------------------------
+  def eliminar(def params){
+    log.println("eliminar(${params})")
+    def form
+    def nom
+    def error
+
+    try {
+      log.println("se va a buscar")
+      form = Pruebaformulario.findById(params.id)
+      nom = form.apellido
+      log.println("${nom}")
+      log.println("se va a buscó")
+    } catch (Exception buscar){
+      log.println("error al buscar")
+      log.println("${buscar.getMessage()}")
+      throw new Exception ("no se pudo buscar")
+    }
+
+    if (form){
+      try {
+        log.println("se va a borrar")
+        form.delete(flush:true)
+        log.println("se va a borró")
+      }catch (Exception borrar){
+        log.println("error al borrar")
+        log.println("${borrar.getMessage()}")
+        throw new Exception ("no se pudo borrar")
+      }
+    } else{
+      throw new Exception ("no existe")
+    }
+
+    nom
+
+  }
+//------------------------------------------------------------------------------
 }
