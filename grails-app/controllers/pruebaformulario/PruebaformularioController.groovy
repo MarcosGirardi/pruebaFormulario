@@ -107,20 +107,17 @@ class PruebaformularioController {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
                 redirect formulario
             }
-            '*' { respond pruebaformularioInstance, [status: CREATED] }
+            '*' { respond formulario, [status: CREATED] }
         }
       } else{
         request.withFormat {
-
             form multipartForm {
                 flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
                 redirect(controller: "pruebaformulario", action: "create", params: [apellido:"${params.apellido}", genero:"${params.genero}", dni:"${params.dni}", correo:"${params.correo}", personalidad:"${params.personalidad}", hobbies:"${params.hobbies}"])
             }
-            '*' { respond pruebaformularioInstance, [status: CREATED] }
+            '*' { respond formulario, [status: CREATED] }
         }
       }
-
-
 
         //-----------------------------Sin Uso----------------------------------
         /*
@@ -147,7 +144,54 @@ class PruebaformularioController {
 
 
 //--------------------------------PUT Method------------------------------------
-    def update(Pruebaformulario pruebaformularioInstance) {
+    def update(def params) {  //Pruebaformulario pruebaformularioInstance
+      log.println("---------------------------------------------")
+      log.println("llega un request al put")
+      def formulario
+      def error
+
+      try {
+        log.println("se va a validar")
+        validationService.validate(params)
+        log.println("Se validó")
+      } catch (Exception validar){
+        log.println("error al validar")
+        error = validar.getMessage()
+        log.println("${error}")
+      }
+
+      if (!error){
+        try {
+          log.println("se va a modificar")
+          formulario = pruebaformularioService.modificar(params)
+          log.println("Se modificó")
+        } catch (Exception crear){
+          log.println("error al modificar")
+          error = crear.getMessage()
+          log.println("${error}")
+        }
+      }
+
+      if (formulario){
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
+                redirect formulario
+            }
+            '*'{ respond formulario, [status: OK] }
+        }
+      } else{
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+                redirect(controller: "pruebaformulario", action: "edit", params: params)
+            }
+            '*' { respond formulario, [status: UPDATED] }
+        }
+      }
+
+        //---------------------------Sin Uso------------------------------------
+        /*
         if (pruebaformularioInstance == null) {
             notFound()
             return
@@ -159,14 +203,8 @@ class PruebaformularioController {
         }
 
         pruebaformularioInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), pruebaformularioInstance.id])
-                redirect pruebaformularioInstance
-            }
-            '*'{ respond pruebaformularioInstance, [status: OK] }
-        }
+        */
+        //----------------------------------------------------------------------
     }
 //------------------------------------------------------------------------------
 

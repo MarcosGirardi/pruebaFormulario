@@ -33,7 +33,7 @@ class PruebaformularioService {
 
     try {
       log.println("buscando")
-      form = Pruebaformulario.findById(params.id)
+      form = Pruebaformulario.read(params.id)
       log.println("buscado")
     } catch (Exception mostrar){
       log.println("error al buscar")
@@ -67,7 +67,6 @@ class PruebaformularioService {
 
     form.apellido = params.apellido
     form.fechaNac = params.fechaNac
-    log.println("${form.fechaNac}")
     form.genero = params.genero
     form.dni = params.dni
     form.correo = params.correo
@@ -81,6 +80,45 @@ class PruebaformularioService {
     } else{
       form.hobbies = Constants.NO_HOBBIES
     }
+
+    try {
+      log.println("se va a guardar")
+      form.save(fĺush:true)
+      log.println("se va guardó")
+    } catch (Exception guardado){
+      log.println("error al guardar")
+      error = guardado.getMessage()
+      throw new Exception (error)
+    }
+
+    form
+
+  }
+//------------------------------------------------------------------------------
+
+
+//------------------------------------MODIFICAR---------------------------------
+  def modificar(def params){
+    log.println("modificar(${params})")
+    def form
+    def error
+
+    try {
+      log.println("buscando")
+      form = Pruebaformulario.findById(params.id)
+      log.println("buscado")
+    } catch (Exception buscar){
+      log.println("error al buscar")
+      throw new Exception (buscar.getMessage())
+    }
+
+    form.apellido = params.apellido
+    form.fechaNac = params.fechaNac
+    form.genero = params.genero
+    form.dni = params.dni
+    form.correo = params.correo
+    if (params.personalidad){form.personalidad = params.personalidad}
+    if (params.hobbies){form.hobbies = params.hobbies}
 
     try {
       log.println("se va a guardar")

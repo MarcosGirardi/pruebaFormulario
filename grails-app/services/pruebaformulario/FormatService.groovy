@@ -36,13 +36,10 @@ class FormatService {
               format = Constants.C_C
             }
           break
-
-          default:
-            format = params
-          break
-
         }
       }
+
+      if (!format){format = params}
 
     format
 
