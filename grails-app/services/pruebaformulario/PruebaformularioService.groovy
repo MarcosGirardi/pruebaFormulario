@@ -11,13 +11,18 @@ class PruebaformularioService {
       log.println("listar()")
       def forms
       def f = Pruebaformulario.createCriteria()
+
       try{
+        log.println("se va a listar")
         forms = f{
           order("apellido", "asc")
           eq("borrado", false)
         }
-      } catch (Exception b){
-        throw new Exception (b.getMessage())
+        log.println("se listó")
+      } catch (Exception listar){
+        log.println("error al listar")
+        log.println("${listar.getMessage()}")
+        throw new Exception (Constants.LISTAR_FORM_ERROR)
       }
 
       forms
@@ -30,7 +35,6 @@ class PruebaformularioService {
   def mostrar(def params, def str){
     log.println("mostrar(${params}; ${str})")
     def form
-    def error
 
     try {
       log.println("buscando")
@@ -38,38 +42,40 @@ class PruebaformularioService {
       log.println("buscado")
     } catch (Exception mostrar){
       log.println("error al buscar")
-      throw new Exception (mostrar.getMessage())
+      log.println("${mostrar.getMessage()}")
+      throw new Exception (Constants.BUSCAR_FORM_ERROR)
     }
 
-    switch(str) {
+    if (form){
+      switch(str) {
 
-      case "show":
-      if(form.hobbies != Constants.NO_HOBBIES){
-        try {
-          log.println("se va a formatear hobbies")
-          form.hobbies = formatService.hobbiesShow(form.hobbies)
-          log.println("se formatearon los hobbies")
-        } catch (Exception format){
-            log.println("error al formatear")
-            error = format.getMessage()
-            log.println("${error}")
-            throw new Exception (error)
+        case "show":
+        if(form.hobbies != Constants.NO_HOBBIES){
+          try {
+            log.println("se va a formatear hobbies")
+            form.hobbies = formatService.hobbiesShow(form.hobbies)
+            log.println("se formatearon los hobbies")
+          } catch (Exception format){
+              log.println("error al formatear")
+              log.println("${format.getMessage()}")
+              throw new Exception (Constants.FORMATEAR_HOOBIES_ERROR)
+          }
         }
-      }
-      break
+        break
 
-      case "edit":
-      if(form.hobbies == Constants.NO_HOBBIES){
-        form.hobbies = null
-      }
-      if(form.personalidad == Constants.NO_PERSONALITY){
-        form.personalidad = null
-      }
-      break
+        case "edit":
+        if(form.hobbies == Constants.NO_HOBBIES){
+          form.hobbies = null
+        }
+        if(form.personalidad == Constants.NO_PERSONALITY){
+          form.personalidad = null
+        }
+        break
 
+      }
+    } else{
+      throw new Exception (Constants.BUSCAR_NOT_FOUND)
     }
-
-
 
     form
 
@@ -81,7 +87,6 @@ class PruebaformularioService {
   def crear(def params){
     log.println("crear(${params})")
     def form = new Pruebaformulario()
-    def error
 
     form.apellido = params.apellido
     form.fechaNac = params.fechaNac
@@ -104,10 +109,10 @@ class PruebaformularioService {
       log.println("se va a guardar")
       form.save(fĺush:true)
       log.println("se va guardó")
-    } catch (Exception guardado){
+    } catch (Exception crear){
       log.println("error al guardar")
-      error = guardado.getMessage()
-      throw new Exception (error)
+      log.println("${crear.getMessage()}")
+      throw new Exception (Constants.CREAR_FORM_ERROR)
     }
 
     form
@@ -128,7 +133,8 @@ class PruebaformularioService {
       log.println("buscado")
     } catch (Exception buscar){
       log.println("error al buscar")
-      throw new Exception (buscar.getMessage())
+      log.println("${buscar.getMessage()}")
+      throw new Exception (Constants.BUSCAR_FORM_ERROR)
     }
 
     form.apellido = params.apellido
@@ -143,10 +149,10 @@ class PruebaformularioService {
       log.println("se va a guardar")
       form.save(fĺush:true)
       log.println("se va guardó")
-    } catch (Exception guardado){
+    } catch (Exception modificar){
       log.println("error al guardar")
-      error = guardado.getMessage()
-      throw new Exception (error)
+      log.println("${modificar.getMessage()}")
+      throw new Exception (Constants.MODIFICAR_FORM_ERROR)
     }
 
     form
@@ -168,7 +174,7 @@ class PruebaformularioService {
     } catch (Exception buscar){
       log.println("error al buscar")
       log.println("${buscar.getMessage()}")
-      throw new Exception ("no se pudo buscar")
+      throw new Exception (Constants.BUSCAR_FORM_ERROR)
     }
 
     if (form){
@@ -177,13 +183,13 @@ class PruebaformularioService {
         form.borrado = true
         form.save(flush:true)
         log.println("se va a borró")
-      }catch (Exception borrar){
+      }catch (Exception eliminar){
         log.println("error al borrar")
-        log.println("${borrar.getMessage()}")
-        throw new Exception ("no se pudo borrar")
+        log.println("${eliminar.getMessage()}")
+        throw new Exception (Constants.BORRAR_FORM_ERROR)
       }
     } else{
-      throw new Exception ("no existe")
+      throw new Exception (Constants.DELETE_NOT_FOUND)
     }
 
     form

@@ -24,16 +24,14 @@ class PruebaformularioController {
         formularios = pruebaformularioService.listar()
         log.println("se buscaron")
       } catch (Exception list){
-        log.println("error al buscar los formularios")
         error = list.getMessage()
-        log.println("${error}")
       }
 
-      if (!error){
-        params.max = Math.min(max ?: 10, 100)
-        respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
+      if (error){
+        redirect(url: "http://localhost:8080/pruebaFormulario/?error=${Constants.LIST_FORM_ERR}")
       } else{
-        //redirect action:"index", method:"GET"
+        params.max = Math.min(max ?: 10, 100)
+        respond formularios
       }
 
     }
@@ -54,13 +52,13 @@ class PruebaformularioController {
       } catch (Exception show){
         log.println("error al buscar")
         error = show.getMessage()
-        log.println("${error}")
       }
 
-      if (!error){
-        respond formulario
+      if (error){
+        flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+        redirect action: "index", method: "GET"
       } else {
-        redirect (action:"index", params: [error: "${error}"])
+        respond formulario
       }
 
     }
@@ -86,7 +84,6 @@ class PruebaformularioController {
       } catch (Exception validar){
         log.println("error al validar")
         error = validar.getMessage()
-        log.println("${error}")
       }
 
       if (!error){
@@ -94,17 +91,16 @@ class PruebaformularioController {
           log.println("se va a crear")
           formulario = pruebaformularioService.crear(params)
           log.println("Se creó")
-        } catch (Exception crear){
+        } catch (Exception save){
           log.println("error al crear")
           error = crear.getMessage()
-          log.println("${error}")
         }
       }
 
       if (formulario){
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'pruebaformulario.label', default: 'Formulario'), formulario.apellido])
                 redirect formulario
             }
             '*' { respond formulario, [status: CREATED] }
@@ -152,13 +148,13 @@ class PruebaformularioController {
       } catch (Exception edit){
         log.println("error al buscar")
         error = edit.getMessage()
-        log.println("${error}")
       }
 
-      if (!error){
-        respond formulario
+      if (error){
+        flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+        redirect action: "index", method: "GET"
       } else {
-        redirect (action:"index", params: [error: "${error}"])
+        respond formulario
       }
     }
 //------------------------------------------------------------------------------
@@ -178,7 +174,6 @@ class PruebaformularioController {
       } catch (Exception validar){
         log.println("error al validar")
         error = validar.getMessage()
-        log.println("${error}")
       }
 
       if (!error){
@@ -186,10 +181,9 @@ class PruebaformularioController {
           log.println("se va a modificar")
           formulario = pruebaformularioService.modificar(params)
           log.println("Se modificó")
-        } catch (Exception crear){
+        } catch (Exception update){
           log.println("error al modificar")
-          error = crear.getMessage()
-          log.println("${error}")
+          error = update.getMessage()
         }
       }
 
@@ -244,7 +238,6 @@ class PruebaformularioController {
       } catch (Exception delete){
         log.println("error al eliminar")
         error = delete.getMessage()
-        log.println("${error}")
       }
 
       if (formulario){
