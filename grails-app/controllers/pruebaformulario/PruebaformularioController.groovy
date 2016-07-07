@@ -138,6 +138,7 @@ class PruebaformularioController {
     def edit(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al edit")
+      log.println("${params}")
       def formulario
       def error
 
@@ -156,6 +157,7 @@ class PruebaformularioController {
       } else {
         respond formulario
       }
+
     }
 //------------------------------------------------------------------------------
 
@@ -164,6 +166,7 @@ class PruebaformularioController {
     def update(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al put")
+      log.println("${params}")
       def formulario
       def error
 
@@ -199,7 +202,7 @@ class PruebaformularioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
-                redirect(controller: "pruebaformulario", action: "edit", params: params)
+                redirect(controller: "pruebaformulario", action: "edit", id: params.id)
             }
             '*' { respond formulario, [status: UPDATED] }
         }

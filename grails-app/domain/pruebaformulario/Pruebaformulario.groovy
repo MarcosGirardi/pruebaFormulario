@@ -19,5 +19,6 @@ class Pruebaformulario {
         correo(maxSize:50,email:true,nullable:true)
         personalidad(nullable:true)
         hobbies(nullable:true)
+        borrado(display:false)
   }
 }
