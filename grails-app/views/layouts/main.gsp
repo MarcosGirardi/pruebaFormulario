@@ -36,7 +36,8 @@
 		<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
 	</div>
 </section><!--fin segundo header -->
-<aside id="sidebar" class="column">
+<div id="contenedorSidebar">
+<aside id="sidebar">
 	<form class="quick_search">
 		<input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
 	</form>
@@ -73,6 +74,7 @@
 				<p><strong>Copyright &copy; 2016 Área de sistemas</strong></p>
 			</footer>
 </aside>
+</div>
 		<div style="width:76%; float:left;margin-left: 1px;">
 	<!--	<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>-->
 		<g:layoutBody/>

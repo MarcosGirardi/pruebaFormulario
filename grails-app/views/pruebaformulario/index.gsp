@@ -32,8 +32,6 @@
 					<g:sortableColumn property="genero" title="genero" />
 					<g:sortableColumn property="dni" title="dni" />
 					<g:sortableColumn property="correo" title="correo" />
-					<g:sortableColumn property="personalidad" title="personalidad" />
-					<g:sortableColumn property="hobbies" title="hobbies" />
 					<g:sortableColumn property="edit" title=" " />
 				</tr>
 			</thead>
@@ -45,8 +43,6 @@
 							<td data-title="genero">${pruebaformularioInstance.genero}</td>
 							<td data-title="dni">${pruebaformularioInstance.dni}</td>
 							<td data-title="correo">${pruebaformularioInstance.correo}</td>
-							<td data-title="personalidad">${pruebaformularioInstance.personalidad}</td>
-							<td data-title="hobbies">${pruebaformularioInstance.hobbies}</td>
 							<td><g:link class="edit" action="edit" id="${pruebaformularioInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></td>
 
 					</tr>
@@ -56,7 +52,7 @@
 		</div>
 			<div class="pagination">
 				<g:paginate total="${pruebaformularioInstanceCount ?: 0}" />
-			</div>
+			</div><br><br><br></H2>FINAL DEL PAGINA<H2>
 		</div>
 	</div>
 	</body>

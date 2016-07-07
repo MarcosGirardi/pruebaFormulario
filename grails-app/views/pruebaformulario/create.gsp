@@ -51,12 +51,11 @@
 				 </div>
 				 	<div class="fieldcontain">
 					 <label> Hobbies: </label><br/>
-					 <div style="float:left;margin-left: 26%;">
+					 <div style="float:left;">
 						 <g:checkBox name="hobbies" value="deporte" checked="false"/> Deporte
 						 <g:checkBox name="hobbies" value="arte" checked="false"/> Arte
 						 <g:checkBox name="hobbies" value="musica" /> Musica
 						 <g:checkBox name="hobbies" value="moda" checked="false"/> Moda
-						 <g:checkBox name="hobbies" value="ninguno" checked="false"/> Ninguno<br/>
 					 </div></div><br/><br/>
 				<div class="fieldcontain">
 							<label>Personalidad: </label>

@@ -33,49 +33,30 @@
 						<span class="property-value"><g:formatDate format="dd-MM-yyyy" date="${pruebaformularioInstance?.fechaNac}" /></span>
 				</li>
 
-				<g:if test="${pruebaformularioInstance?.genero}">
 				<li class="fieldcontain">
 					<span id="genero-label" class="property-label"><g:message code="pruebaformulario.genero.label" default="Genero" /></span>
-
 						<span class="property-value" aria-labelledby="genero-label"><g:fieldValue bean="${pruebaformularioInstance}" field="genero"/></span>
-
 				</li>
-				</g:if>
 
-				<g:if test="${pruebaformularioInstance?.dni}">
 				<li class="fieldcontain">
 					<span id="dni-label" class="property-label"><g:message code="pruebaformulario.dni.label" default="Dni" /></span>
-
 						<span class="property-value" aria-labelledby="dni-label"><g:fieldValue bean="${pruebaformularioInstance}" field="dni"/></span>
-
 				</li>
-				</g:if>
 
-				<g:if test="${pruebaformularioInstance?.correo}">
 				<li class="fieldcontain">
 					<span id="correo-label" class="property-label"><g:message code="pruebaformulario.correo.label" default="Correo" /></span>
-
 						<span class="property-value" aria-labelledby="correo-label"><g:fieldValue bean="${pruebaformularioInstance}" field="correo"/></span>
-
 				</li>
-				</g:if>
 
-				<g:if test="${pruebaformularioInstance?.personalidad}">
 				<li class="fieldcontain">
 					<span id="personalidad-label" class="property-label"><g:message code="pruebaformulario.personalidad.label" default="Personalidad" /></span>
-
 						<span class="property-value" aria-labelledby="personalidad-label"><g:fieldValue bean="${pruebaformularioInstance}" field="personalidad"/></span>
-
 				</li>
-				</g:if>
-				<g:if test="${pruebaformularioInstance?.hobbies}">
+
 				<li class="fieldcontain">
 					<span id="hobbies-label" class="property-label"><g:message code="pruebaformulario.hobbies.label" default="Hobbies" /></span>
-
 						<span class="property-value" aria-labelledby="hobbies-label"><g:fieldValue bean="${pruebaformularioInstance}" field="hobbies"/></span>
-
 				</li>
-				</g:if>
 
 			</ol>
 			<g:form url="[resource:pruebaformularioInstance, action:'delete']" method="DELETE">
