@@ -11,12 +11,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pruebaformularioInstance, field: 'fechaNac', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: pruebaformularioInstance, field: 'fechaNac', 'error')} required">
 	<label for="fechaNac">
 		<g:message code="pruebaformulario.fechaNac.label" default="Fecha Nac" />
-		
+		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="fechaNac" precision="day"  value="${pruebaformularioInstance?.fechaNac}" default="none" noSelection="['': '']" />
+	<g:datePicker name="fechaNac" precision="day"  value="${pruebaformularioInstance?.fechaNac}"  />
 
 </div>
 

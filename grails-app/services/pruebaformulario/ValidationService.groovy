@@ -1,6 +1,8 @@
 package pruebaformulario
 
 import grails.transaction.Transactional
+import java.text.SimpleDateFormat
+import java.util.regex.*
 
 @Transactional
 class ValidationService {
@@ -8,20 +10,46 @@ class ValidationService {
 //----------------------------Validacion de Fomr--------------------------------
     def validate(def params) {
       log.println("validate(${params})")
-      def error = "Falta:"
+      def error = ""
+      def dia = new Date()
+      def sdf
+      sdf = new SimpleDateFormat("MM/dd/yyyy")
 
-      if (!params.fechaNac){error += "\n" + "fecha de nacimiento;"}
-      if (!params.dni){error += "\n" + "DNI;"}
-      if (!params.correo){error += "\n" + "correo;"}
-      log.println("${error}")
+      if (!params.fechaNac){
+        error += " " + Constants.MISSING_FECHA
+      } else{
+        if (sdf.format(dia) <= sdf.format(params.fechaNac)){
+          error = Constants.FECHA_ERROR
+        }
+      }
+      if (!params.dni){
+        error += " " + Constants.MISSING_DNI
+      } else{
+        if (!params.dni.isBigInteger()){
+          error += " " + Constants.DNI_INVALID_TYPE
+        } else{
+          if (params.dni.size()!=8){
+            error += " " + Constants.DNI_INVALID_SIZE
+          }
+        }
+      }
+      log.println(params.correo ==~ Constants.CORREO_PATTERN)
+      if (!params.correo){
+        error += " " + Constants.MISSING_CORREO
+      } else{
+        if (!(params.correo ==~ Constants.CORREO_PATTERN)){
+          error += " " + Constants.CORREO_ERROR
+        }
+      }
 
-      if (error != "Falta:"){throw new Exception (error)}
+      if (error){throw new Exception (error)}
 
     }
 //------------------------------------------------------------------------------
 
 
 //-----------------------------Recuperar----------------------------------------
+//----------------------------Sin Uso Por Ahora---------------------------------
   def recuperar(def form, def error){
     log.println("recuperar(${form}, ${error})")
     def temp

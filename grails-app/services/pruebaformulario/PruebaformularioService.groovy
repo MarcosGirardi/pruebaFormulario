@@ -46,14 +46,14 @@ class PruebaformularioService {
       throw new Exception (Constants.BUSCAR_FORM_ERROR)
     }
 
-    if (form){
+    if (form && form.borrado==false){
       switch(str) {
 
         case "show":
         if(form.hobbies != Constants.NO_HOBBIES){
           try {
             log.println("se va a formatear hobbies")
-            form.hobbies = formatService.hobbiesShow(form.hobbies)
+            form.hobbies = formatService.hobbies(form.hobbies)
             log.println("se formatearon los hobbies")
           } catch (Exception format){
               log.println("error al formatear")
@@ -108,7 +108,7 @@ class PruebaformularioService {
     try {
       log.println("se va a guardar")
       form.save(fĺush:true)
-      log.println("se va guardó")
+      log.println("se guardó")
     } catch (Exception crear){
       log.println("error al guardar")
       log.println("${crear.getMessage()}")

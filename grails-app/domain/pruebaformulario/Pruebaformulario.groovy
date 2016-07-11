@@ -13,7 +13,7 @@ class Pruebaformulario {
 
   static constraints = {
         apellido(maxSize:50,blank:false)
-        fechaNac(nullable:true)
+        fechaNac(nullable:false)
         genero(inList:["M", "F"])
         dni(nullable:true, maxSize:8, minSize:8)
         correo(maxSize:50,email:true,nullable:true)

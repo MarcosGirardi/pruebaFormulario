@@ -18,17 +18,26 @@ class PruebaformularioController {
       log.println("llega un request al Listar")
       def formularios
       def error
+      def mensaje
 
       try{
         log.println("se van a buscar todos los formularios")
         formularios = pruebaformularioService.listar()
         log.println("se buscaron")
       } catch (Exception list){
+        log.println("error al buscar todos los formularios")
         error = list.getMessage()
+        log.println("${error}")
       }
 
       if (error){
-        redirect(url: "http://localhost:8080/pruebaFormulario/?error=${Constants.LIST_FORM_ERR}")
+        if (error == Constants.LISTAR_FORM_ERROR){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
+        flash.error = message(code: "${mensaje}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+        redirect(url: "http://localhost:8080/pruebaFormulario/")
       } else{
         params.max = Math.min(max ?: 10, 100)
         respond formularios
@@ -44,6 +53,7 @@ class PruebaformularioController {
       log.println("llega un request al show")
       def formulario
       def error
+      def mensaje
 
       try {
         log.println("se va a buscar")
@@ -52,10 +62,16 @@ class PruebaformularioController {
       } catch (Exception show){
         log.println("error al buscar")
         error = show.getMessage()
+        log.println("${error}")
       }
 
       if (error){
-        flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+        if (error == Constants.BUSCAR_FORM_ERROR || error ==  Constants.FORMATEAR_HOOBIES_ERROR || error == Constants.BUSCAR_NOT_FOUND){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
+        flash.error = message(code: "${mensaje}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
         redirect action: "index", method: "GET"
       } else {
         respond formulario
@@ -76,6 +92,7 @@ class PruebaformularioController {
       log.println("llega un request al post")
       def formulario
       def error
+      def mensaje
 
       try {
         log.println("se va a validar")
@@ -84,6 +101,7 @@ class PruebaformularioController {
       } catch (Exception validar){
         log.println("error al validar")
         error = validar.getMessage()
+        log.println("${error}")
       }
 
       if (!error){
@@ -94,6 +112,7 @@ class PruebaformularioController {
         } catch (Exception save){
           log.println("error al crear")
           error = crear.getMessage()
+          log.println("${error}")
         }
       }
 
@@ -106,10 +125,15 @@ class PruebaformularioController {
             '*' { respond formulario, [status: CREATED] }
         }
       } else{
+        if (error.contains(Constants.MISSING_FECHA) || error.contains(Constants.FECHA_ERROR) ||  error.contains(Constants.MISSING_DNI) || error.contains(Constants.DNI_INVALID_TYPE) || error.contains(Constants.DNI_INVALID_SIZE) || error.contains(Constants.MISSING_CORREO) || error== Constants.CREAR_FORM_ERROR){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
-                redirect(controller: "pruebaformulario", action: "create", params: [apellido:"${params.apellido}", genero:"${params.genero}", dni:"${params.dni}", correo:"${params.correo}", personalidad:"${params.personalidad}", hobbies:"${params.hobbies}"])
+                flash.error = message(code: "${mensaje}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+                forward(controller: "pruebaformulario", action: "create", method: "post", params: [apellido:"${params.apellido}", genero:"${params.genero}", dni:"${params.dni}", correo:"${params.correo}", personalidad:"${params.personalidad}", hobbies:"${params.hobbies}"])
             }
             '*' { respond formulario, [status: CREATED] }
         }
@@ -138,9 +162,9 @@ class PruebaformularioController {
     def edit(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al edit")
-      log.println("${params}")
       def formulario
       def error
+      def mensaje
 
       try {
         log.println("se va a buscar")
@@ -149,10 +173,16 @@ class PruebaformularioController {
       } catch (Exception edit){
         log.println("error al buscar")
         error = edit.getMessage()
+        log.println("${error}")
       }
 
       if (error){
-        flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+        if (error == Constants.BUSCAR_FORM_ERROR || error == Constants.BUSCAR_NOT_FOUND){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
+        flash.error = message(code: "${mensaje}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
         redirect action: "index", method: "GET"
       } else {
         respond formulario
@@ -166,9 +196,9 @@ class PruebaformularioController {
     def update(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al put")
-      log.println("${params}")
       def formulario
       def error
+      def mensaje
 
       try {
         log.println("se va a validar")
@@ -177,6 +207,7 @@ class PruebaformularioController {
       } catch (Exception validar){
         log.println("error al validar")
         error = validar.getMessage()
+        log.println("${error}")
       }
 
       if (!error){
@@ -187,6 +218,7 @@ class PruebaformularioController {
         } catch (Exception update){
           log.println("error al modificar")
           error = update.getMessage()
+          log.println("${error}")
         }
       }
 
@@ -199,9 +231,14 @@ class PruebaformularioController {
             '*'{ respond formulario, [status: OK] }
         }
       } else{
+        if (error.contains(Constants.MISSING_FECHA) ||  error.contains(Constants.MISSING_DNI) || error.contains(Constants.DNI_INVALID_TYPE) || error.contains(Constants.DNI_INVALID_SIZE) || error.contains(Constants.MISSING_CORREO) || error == Constants.BUSCAR_FORM_ERROR || error== Constants.MODIFICAR_FORM_ERROR){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
+                flash.error = message(code: "${mensaje}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
                 redirect(controller: "pruebaformulario", action: "edit", id: params.id)
             }
             '*' { respond formulario, [status: UPDATED] }
@@ -232,7 +269,7 @@ class PruebaformularioController {
       log.println("---------------------------------------------")
       log.println("llega un request al delete")
       def formulario
-      def error
+      def mensaje
 
       try {
         log.println("se va a eliminar")
@@ -241,6 +278,7 @@ class PruebaformularioController {
       } catch (Exception delete){
         log.println("error al eliminar")
         error = delete.getMessage()
+        log.println("${error}")
       }
 
       if (formulario){
@@ -252,16 +290,19 @@ class PruebaformularioController {
             '*'{ render status: NO_CONTENT }
         }
       } else{
+        if (error.contains(Constants.BUSCAR_FORM_ERROR) ||  error.contains(Constants.BORRAR_FORM_ERROR) || error.contains(Constants.DELETE_NOT_FOUND)){
+          mensaje = error
+        } else {
+          mensaje = Constants.OTHER_ERROR
+        }
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: "${error}", args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
+                flash.error = message(code: "${mensaje}", args: [message(code: 'Pruebaformulario.label', default: 'Pruebaformulario'), formulario.apellido])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
         }
       }
-
-
 
         //---------------------------Sin Uso------------------------------------
         /*

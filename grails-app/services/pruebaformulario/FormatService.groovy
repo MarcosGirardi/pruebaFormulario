@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 class FormatService {
 
 //----------------------------Hobbies Formating---------------------------------
-    def hobbiesShow(def params) {
+    def hobbies(def params) {
       log.println("hobbiesShow(${params})")
       def h = params.tokenize('-')
       def format
