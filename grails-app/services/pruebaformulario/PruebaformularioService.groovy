@@ -10,6 +10,7 @@ class PruebaformularioService {
     def listar(def params) {
       log.println("listar(${params})")
       def forms
+      def total
       def f = Pruebaformulario.createCriteria()
 
 //log.println("${params.max.getClass()}")
@@ -29,17 +30,15 @@ class PruebaformularioService {
           eq("borrado", false)
           maxResults(params.max)
         }
+        total = Pruebaformulario.findAllByBorrado(false).size()
         log.println("se listó")
       } catch (Exception listar){
         log.println("error al listar")
         log.println("${listar.getMessage()}")
         throw new Exception (Constants.LISTAR_ERROR)
       }
-      def asd = Pruebaformulario.findAllByBorrado(false)
-      log.println(Pruebaformulario.findAllByBorrado(false).size())
-      log.println("${asd.size()}")
 
-      forms//, model:[pruebaformularioInstanceCount: Pruebaformulario.count()]
+      return [forms, total]
 
     }
 //------------------------------------------------------------------------------

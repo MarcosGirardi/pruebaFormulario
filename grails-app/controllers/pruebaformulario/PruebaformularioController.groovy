@@ -17,11 +17,12 @@ class PruebaformularioController {
       log.println("---------------------------------------------")
       log.println("llega un request al Listar")
       def formularios
+      def total
       def error
 
       try{
         log.println("se van a buscar todos los formularios")
-        formularios = pruebaformularioService.listar(params)
+        (formularios, total) = pruebaformularioService.listar(params)
         log.println("se buscaron")
       } catch (Exception list){
         log.println("error al buscar todos los formularios")
@@ -30,7 +31,7 @@ class PruebaformularioController {
       }
 
       if (formularios){
-        respond formularios, model:[pruebaformularioInstanceCount: Pruebaformulario.findAllByBorrado(false).size()]
+        respond formularios, model:[pruebaformularioInstanceCount: total]
       } else{
         if (error != Constants.LISTAR_ERROR){
           error = Constants.OTHER_ERROR
