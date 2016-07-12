@@ -16,29 +16,28 @@ class ValidationService {
       sdf = new SimpleDateFormat("MM/dd/yyyy")
 
       if (!params.fechaNac){
-        error += " " + Constants.MISSING_FECHA
+        error += " " + Constants.FECHA_ERROR
       } else{
         if (sdf.format(dia) <= sdf.format(params.fechaNac)){
           error = Constants.FECHA_ERROR
         }
       }
       if (!params.dni){
-        error += " " + Constants.MISSING_DNI
+        error += " " + Constants.DNI_ERROR
       } else{
         if (!params.dni.isBigInteger()){
-          error += " " + Constants.DNI_INVALID_TYPE
+          error += " " + Constants.DNI_ERROR
         } else{
           if (params.dni.size()!=8){
-            error += " " + Constants.DNI_INVALID_SIZE
+            error += " " + Constants.DNI_ERROR
           }
         }
       }
-      log.println(params.correo ==~ Constants.CORREO_PATTERN)
       if (!params.correo){
-        error += " " + Constants.MISSING_CORREO
+        error += " " + Constants.EMAIL_ERROR
       } else{
-        if (!(params.correo ==~ Constants.CORREO_PATTERN)){
-          error += " " + Constants.CORREO_ERROR
+        if (!(params.correo ==~ Constants.EMAIL_PATTERN)){
+          error += " " + Constants.EMAIL_ERROR
         }
       }
 
