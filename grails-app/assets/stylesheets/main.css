@@ -7,18 +7,12 @@ input, select, textarea {
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
-
+html,body{
+margin:0px;
+height:100%;
+}
 /* BASE LAYOUT */
 
-html {
-	background-color: #fff;
-	background-repeat: no-repeat;
-	height: 100%;
-	/* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
-}
 
 html.no-cssgradients {
 	background-color: #aaa;
@@ -32,16 +26,7 @@ html * {
 	margin: 0;
 }
 
-body {
-	background: #ffffff;
-	color: #333333;
-	margin: 0 auto;
-	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
-	   -moz-box-shadow: 0 0 0.3em #255b17;
-	-webkit-box-shadow: 0 0 0.3em #255b17;
-	        box-shadow: 0 0 0.3em #255b17;
-					height: auto;
-}
+
 
 #grailsLogo {
 	background-color: #abbf78;
@@ -107,21 +92,6 @@ img {
 	border: none;
 }
 
-.footer {
-	background: #abbf78;
-	color: #000;
-	clear: both;
-	font-size: 0.8em;
-	margin-top: 1.5em;
-	padding: 1.2em;
-	min-height: 1em;
-	width: 100%;
-  float: left;
-}
-
-.footer a {
-	color: #255b17;
-}
 
 .spinner {
 	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
@@ -144,7 +114,7 @@ img {
 	        box-shadow: 0 0 3px 1px #aaaaaa;
 	zoom: 1;
 	float: left;
-	width: 100%;
+	width: 98%;
 	margin-bottom: 16px;
 }
 
@@ -281,47 +251,6 @@ fieldset.embedded legend {
 
 /* MESSAGES AND ERRORS */
 
-.errors,
-.message {
-	font-size: 0.8em;
-	line-height: 2;
-	margin: 1em 2em;
-	padding: 0.25em;
-}
-
-.message {
-	background: #f3f3ff;
-	border: 1px solid #b2d1ff;
-	color: #006dba;
-	   -moz-box-shadow: 0 0 0.25em #b2d1ff;
-	-webkit-box-shadow: 0 0 0.25em #b2d1ff;
-	        box-shadow: 0 0 0.25em #b2d1ff;
-}
-
-.errors {
-	background: #fff3f3;
-	border: 1px solid #ffaaaa;
-	color: #cc0000;
-	   -moz-box-shadow: 0 0 0.25em #ff8888;
-	-webkit-box-shadow: 0 0 0.25em #ff8888;
-	        box-shadow: 0 0 0.25em #ff8888;
-}
-
-.errors ul,
-.message {
-	padding: 0;
-}
-
-.errors li {
-	list-style: none;
-	background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
-	text-indent: 2.2em;
-}
-
-.message {
-	background: transparent url(../images/skin/information.png) 0.5em 50% no-repeat;
-	text-indent: 2.2em;
-}
 
 /* form fields with errors */
 

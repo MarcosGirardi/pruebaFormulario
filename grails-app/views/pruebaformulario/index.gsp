@@ -14,8 +14,7 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="Inicio"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="Nuevo usuario" args="[entityName]" /></g:link></li>
 			</ul>
-		</div></div>
-		<div style="width:76%;float:right">
+		</div>
 		<div id="list-pruebaformulario" class="content scaffold-list" role="main">
 			<h1>LISTADO PRINCIPAL</h1>
 			<p> En el siguiente listado, se presentan los usuarios que ingresamos realizando una prueba de formulario
@@ -52,8 +51,7 @@
 		</div>
 			<div class="pagination">
 				<g:paginate total="${pruebaformularioInstanceCount ?: 0}" />
-			</div><br><br><br></H2>FINAL DEL PAGINA<H2>
-		</div>
-	</div>
+			</div>
+		</div><p>HOLAAA</p><br/><br/><br/><h2>CHAUU</h2><br/><br/><br/><h2>CHAUU</h2>
 	</body>
 </html>

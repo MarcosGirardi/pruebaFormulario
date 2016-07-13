@@ -74,9 +74,9 @@
 				#status {
 					display: none;
 				}
-
 				#page-body {
 					margin: 0 1em 1em;
+					width: 100%;
 				}
 
 				#page-body h1 {

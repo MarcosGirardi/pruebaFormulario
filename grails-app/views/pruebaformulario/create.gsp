@@ -33,8 +33,7 @@
 				</div>
 				<div class="fieldcontain">
 					<label> Fecha de Nacimiento: </label>
-						<g:datePicker name="fechaNac" value="${new Date()}"precision="day"
-							noSelection="['':'-Choose-']" /><br/>
+						<g:datePicker name="fechaNac" value="${new Date()}"precision="day"/><br/>
 				</div>
 				<div class="fieldcontain">
 				 <label> Genero : </label>

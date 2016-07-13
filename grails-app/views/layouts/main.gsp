@@ -21,6 +21,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
+<div id="contenedor" style="width:100%; height:100%;">
 		<header id="header">
 	<hgroup>
 		<h1 class="site_title"><a href="index.html">Administrador</a></h1>
@@ -36,49 +37,49 @@
 		<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
 	</div>
 </section><!--fin segundo header -->
-<div id="contenedorSidebar">
-<aside id="sidebar">
-	<form class="quick_search">
-		<input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-	</form>
-	<hr/>
-	<h3>Content</h3>
-	<ul class="toggle">
-		<li class="icn_new_article"><a href="#">New Article</a></li>
-		<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
-		<li class="icn_categories"><a href="#">Categories</a></li>
-		<li class="icn_tags"><a href="#">Tags</a></li>
-	</ul>
-	<h3>Users</h3>
-	<ul class="toggle">
-		<li class="icn_add_user"><a href="#">Add New User</a></li>
-		<li class="icn_view_users"><a href="#">View Users</a></li>
-		<li class="icn_profile"><a href="#">Your Profile</a></li>
-	</ul>
-	<h3>Media</h3>
-	<ul class="toggle">
-		<li class="icn_folder"><a href="#">File Manager</a></li>
-		<li class="icn_photo"><a href="#">Gallery</a></li>
-		<li class="icn_audio"><a href="#">Audio</a></li>
-		<li class="icn_video"><a href="#">Video</a></li>
-	</ul>
-	<h3>Admin</h3>
-	<ul class="toggle">
-		<li class="icn_settings"><a href="#">Options</a></li>
-		<li class="icn_security"><a href="#">Security</a></li>
-		<li class="icn_jump_back"><a href="#">Logout</a></li>
-	</ul>
 
-			<footer>
+	<aside id="sidebar">
+		<form class="quick_search">
+			<input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+		</form>
+		<hr/>
+		<h3>Content</h3>
+		<ul class="toggle">
+			<li class="icn_new_article"><a href="#">New Article</a></li>
+			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
+			<li class="icn_categories"><a href="#">Categories</a></li>
+			<li class="icn_tags"><a href="#">Tags</a></li>
+		</ul>
+		<h3>Users</h3>
+		<ul class="toggle">
+			<li class="icn_add_user"><a href="#">Add New User</a></li>
+			<li class="icn_view_users"><a href="#">View Users</a></li>
+			<li class="icn_profile"><a href="#">Your Profile</a></li>
+		</ul>
+		<h3>Media</h3>
+		<ul class="toggle">
+			<li class="icn_folder"><a href="#">File Manager</a></li>
+			<li class="icn_photo"><a href="#">Gallery</a></li>
+			<li class="icn_audio"><a href="#">Audio</a></li>
+			<li class="icn_video"><a href="#">Video</a></li>
+		</ul>
+		<h3>Admin</h3>
+		<ul class="toggle">
+			<li class="icn_settings"><a href="#">Options</a></li>
+			<li class="icn_security"><a href="#">Security</a></li>
+			<li class="icn_jump_back"><a href="#">Logout</a></li>
+		</ul>
+
 				<hr />
-				<p><strong>Copyright &copy; 2016 Área de sistemas</strong></p>
-			</footer>
-</aside>
-</div>
-		<div style="width:76%; float:left;margin-left: 1px;">
+
+	</aside>
+		<div id="cuerpoContenido"><!--INICIA EL CONTENEDOR DEL CONTENIDO-->
 	<!--	<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>-->
 		<g:layoutBody/>
+
 	<!--	<div class="footer" role="contentinfo"></div>-->
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+</div>
+</div>
 	</body>
 </html>
