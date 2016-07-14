@@ -16,6 +16,8 @@ class PruebaformularioService {
 //log.println("${params.max.getClass()}")
 //log.println("${params.offset.getClass()}")
 
+      if (!params.sort){params.sort = 'apellido'}
+      if (!params.order){params.ord = 'asc'}
       if (!params.max){params.max = 10} else{params.max = params.max.toInteger()}
       if (!params.offset){params.offset = 0} else{params.offset = params.offset.toInteger()}
 
@@ -26,7 +28,7 @@ class PruebaformularioService {
         log.println("se va a listar")
         forms = f{
           firstResult(params.offset)
-          order("apellido", "asc")
+          order(params.sort, params.order)
           eq("borrado", false)
           maxResults(params.max)
         }

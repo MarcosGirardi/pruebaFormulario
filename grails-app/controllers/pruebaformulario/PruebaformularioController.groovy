@@ -126,7 +126,7 @@ class PruebaformularioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: "${error}")
-                forward(controller: "pruebaformulario", action: "create", method: "post", params: [apellido:"${params.apellido}", genero:"${params.genero}", dni:"${params.dni}", correo:"${params.correo}", personalidad:"${params.personalidad}", hobbies:"${params.hobbies}"])
+                forward(controller: "pruebaformulario", action: "create", method: "post", params: params)
             }
             '*' { respond formulario, [status: CREATED] }
         }
@@ -226,7 +226,7 @@ class PruebaformularioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
-                redirect(controller: "pruebaformulario", action: "edit", id: params.id)
+                forward(controller: "pruebaformulario", action: "edit", params: params)  //id: params.id
             }
             '*' { respond formulario, [status: UPDATED] }
         }
@@ -277,7 +277,7 @@ class PruebaformularioController {
             '*'{ render status: NO_CONTENT }
         }
       } else{
-        if (error != Constants.BUSCAR_ERROR &&  error != Constants.BORRAR_ERROR || error != Constants.DELETED){
+        if (error != Constants.BUSCAR_ERROR &&  error != Constants.BORRAR_ERROR && error != Constants.DELETED){
           error = Constants.OTHER_ERROR
         }
         request.withFormat {

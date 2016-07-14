@@ -7,6 +7,9 @@ class UrlMappings {
             }
         }
 
+				//"/$controller/update(.$format)?"(action: "index")
+				//"/$controller/save"(action: "index")
+
         "/"(view:"/index")
         "500"(view:'/error')
 	}
