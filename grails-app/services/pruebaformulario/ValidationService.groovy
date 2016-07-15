@@ -47,54 +47,27 @@ class ValidationService {
 //------------------------------------------------------------------------------
 
 
-//-----------------------------Recuperar----------------------------------------
-//----------------------------Sin Uso Por Ahora---------------------------------
-  def recuperar(def form){
-    log.println("recuperar(${form})")
-    def temp
-
-    try {
-      log.println("recuperando")
-      temp = Pruebaformulario.read(form.id)
-      log.println("se ha recuperado")
-    } catch (Exception recuperar){
-      log.println("error al recuperar")
-      log.println("${recuperar.getMessage()}")
-      throw new Exception (Constants.RECUPERAR_FORM_ERROR)
+//-----------------------------------Rellenar-----------------------------------
+  def rellenar(def form, def params){
+    log.println("rellenar(${form}, ${params})")
+    
+    form.apellido = params.apellido
+    form.genero = params.genero
+    form.personalidad = params.personalidad
+    form.hobbies = params.hobbies
+    form.borrado = params.borrado
+    if (!params.error.contains(Constants.FECHA_ERROR)){
+      form.fechaNac = params.fechaNac
+    }
+    if (!params.error.contains(Constants.DNI_ERROR)){
+      form.dni = params.dni
+    }
+    if (!params.error.contains(Constants.EMAIL_ERROR)){
+      form.correo = params.correo
     }
 
-    temp.apellido = form.apellido
-    temp.genero = form.genero
-    temp.personalidad = form.personalidad
-    temp.hobbies = form.hobbies
-    if (!form.error.contains(Constants.FECHA_ERROR)){
-      temp.fechaNac = form.fechaNac
-    }
-    if (!form.error.contains(Constants.DNI_ERROR)){
-      temp.dni = form.dni
-    }
-    if (!form.error.contains(Constants.EMAIL_ERROR)){
-      temp.correo = form.correo
-    }
-
-    temp
+    form
 
   }
 //------------------------------------------------------------------------------
-
-
-//-----------------------------------Rellenar-----------------------------------
-  def rellenar(def form, def temp){
-    log.println("rellenar(${form}, ${temp})")
-    form.apellido = temp.apellido
-    form.fechaNac = temp.fechaNac
-    form.genero = temp.genero
-    form.dni = temp.dni
-    form.correo = temp.correo
-    form.personalidad = temp.personalidad
-    form.hobbies = temp.hobbies
-    form.borrado = temp.borrado
-
-    form
-  }
 }

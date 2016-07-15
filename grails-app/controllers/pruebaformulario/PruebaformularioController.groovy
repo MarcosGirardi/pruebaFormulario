@@ -177,20 +177,15 @@ class PruebaformularioController {
 
       if (params.error){
         try {
-          log.println("se va a recuperar")
-          temp = validationService.recuperar(params)
-          log.println("se recuperó")
           log.println("se va a rellenar")
-          formulario = validationService.rellenar(formulario, temp)
+          formulario = validationService.rellenar(formulario, params)
           log.println("se rellenó")
         } catch (Exception rec){
-          log.println("error al recuperar/rellenar")
+          log.println("error al rellenar")
           error = rec.getMessage()
           log.println("${error}")
         }
       }
-
-      //formulario.apellido = temp.apellido
 
       if (formulario){
         respond formulario
