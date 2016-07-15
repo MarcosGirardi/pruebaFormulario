@@ -13,16 +13,10 @@ class PruebaformularioService {
       def total
       def f = Pruebaformulario.createCriteria()
 
-//log.println("${params.max.getClass()}")
-//log.println("${params.offset.getClass()}")
-
       if (!params.sort){params.sort = 'apellido'}
       if (!params.order){params.order = 'asc'}
       if (!params.max){params.max = 10} else{params.max = params.max.toInteger()}
       if (!params.offset){params.offset = 0} else{params.offset = params.offset.toInteger()}
-
-      //log.println("${params.max.getClass()}")
-      //log.println("${params.offset.getClass()}")
 
       try{
         log.println("se va a listar")

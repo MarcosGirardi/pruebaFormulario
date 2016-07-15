@@ -40,7 +40,7 @@ class Constants{
   public static String MODIFICAR_ERROR = "Error al actualizar el formulario"
   public static String BORRAR_ERROR = "Error al borrar el formulario"
   public static String DELETED = "El formulario ya no existe"
-//public static String RECUPERAR_FORM_ERROR = "Error al recuperar el formulario"
+  public static String RECUPERAR_FORM_ERROR = "Error al recuperar el formulario"
 //------------------------------------------------------------------------------
 
 

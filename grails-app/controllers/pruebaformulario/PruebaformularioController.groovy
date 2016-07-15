@@ -16,6 +16,7 @@ class PruebaformularioController {
     def index(def params) {
       log.println("---------------------------------------------")
       log.println("llega un request al Listar")
+      log.println("${params}")
       def formularios
       def total
       def error
@@ -48,6 +49,7 @@ class PruebaformularioController {
     def show(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al show")
+      log.println("${params}")
       def formulario
       def error
 
@@ -86,6 +88,7 @@ class PruebaformularioController {
     def save(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al post")
+      log.println("${params}")
       def formulario
       def error
 
@@ -155,8 +158,12 @@ class PruebaformularioController {
     def edit(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al edit")
+      log.println("${params}")
       def formulario
+      def temp
       def error
+
+      log.println("${params.error}")
 
       try {
         log.println("se va a buscar")
@@ -167,6 +174,23 @@ class PruebaformularioController {
         error = edit.getMessage()
         log.println("${error}")
       }
+
+      if (params.error){
+        try {
+          log.println("se va a recuperar")
+          temp = validationService.recuperar(params)
+          log.println("se recuperó")
+          log.println("se va a rellenar")
+          formulario = validationService.rellenar(formulario, temp)
+          log.println("se rellenó")
+        } catch (Exception rec){
+          log.println("error al recuperar/rellenar")
+          error = rec.getMessage()
+          log.println("${error}")
+        }
+      }
+
+      //formulario.apellido = temp.apellido
 
       if (formulario){
         respond formulario
@@ -186,6 +210,7 @@ class PruebaformularioController {
     def update(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al put")
+      log.println("${params}")
       def formulario
       def error
 
@@ -222,6 +247,8 @@ class PruebaformularioController {
       } else{
         if (!(error.contains(Constants.FECHA_ERROR)) && !(error.contains(Constants.DNI_ERROR)) && !(error.contains(Constants.EMAIL_ERROR)) && error != Constants.BUSCAR_ERROR && error != Constants.DELETED && error != Constants.MODIFICAR_ERROR){
           error = Constants.OTHER_ERROR
+        } else{
+          params.error = error
         }
         request.withFormat {
             form multipartForm {
@@ -255,6 +282,7 @@ class PruebaformularioController {
     def delete(Pruebaformulario pruebaformularioInstance) {
       log.println("---------------------------------------------")
       log.println("llega un request al delete")
+      log.println("${params}")
       def formulario
       def error
 

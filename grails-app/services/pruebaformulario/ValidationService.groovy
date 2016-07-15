@@ -49,32 +49,52 @@ class ValidationService {
 
 //-----------------------------Recuperar----------------------------------------
 //----------------------------Sin Uso Por Ahora---------------------------------
-  def recuperar(def form, def error){
-    log.println("recuperar(${form}, ${error})")
+  def recuperar(def form){
+    log.println("recuperar(${form})")
     def temp
 
     try {
-      log.println("se va a recuperar")
+      log.println("recuperando")
       temp = Pruebaformulario.read(form.id)
-      log.println("se recuperó")
+      log.println("se ha recuperado")
     } catch (Exception recuperar){
       log.println("error al recuperar")
       log.println("${recuperar.getMessage()}")
       throw new Exception (Constants.RECUPERAR_FORM_ERROR)
     }
 
-    if (error.contains("fecha de nacimiento")){
-      form.fechaNac = temp.fechaNac
+    temp.apellido = form.apellido
+    temp.genero = form.genero
+    temp.personalidad = form.personalidad
+    temp.hobbies = form.hobbies
+    if (!form.error.contains(Constants.FECHA_ERROR)){
+      temp.fechaNac = form.fechaNac
     }
-    if (error.contains("DNI")){
-      form.dni = temp.dni
+    if (!form.error.contains(Constants.DNI_ERROR)){
+      temp.dni = form.dni
     }
-    if (error.contains("correo")){
-      form.correo = temp.correo
+    if (!form.error.contains(Constants.EMAIL_ERROR)){
+      temp.correo = form.correo
     }
 
-    form
+    temp
 
   }
 //------------------------------------------------------------------------------
+
+
+//-----------------------------------Rellenar-----------------------------------
+  def rellenar(def form, def temp){
+    log.println("rellenar(${form}, ${temp})")
+    form.apellido = temp.apellido
+    form.fechaNac = temp.fechaNac
+    form.genero = temp.genero
+    form.dni = temp.dni
+    form.correo = temp.correo
+    form.personalidad = temp.personalidad
+    form.hobbies = temp.hobbies
+    form.borrado = temp.borrado
+
+    form
+  }
 }
