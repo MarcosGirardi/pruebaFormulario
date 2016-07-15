@@ -182,15 +182,15 @@ class PruebaformularioController {
           log.println("se rellenó")
         } catch (Exception rec){
           log.println("error al rellenar")
-          error = rec.getMessage()
-          log.println("${error}")
+          log.println("${rec.getMessage()}")
+          error = Constants.RELLENAR_ERROR
         }
       }
 
       if (formulario){
         respond formulario
       } else{
-        if (error != Constants.BUSCAR_ERROR && error != Constants.BUSCAR_NOT_FOUND){
+        if (error != Constants.BUSCAR_ERROR && error != Constants.BUSCAR_NOT_FOUND && error != Constants.RELLENAR_ERROR){
           error = Constants.OTHER_ERROR
         }
         flash.message = message(code: "${error}", args: [message(code: 'pruebaformulario.label', default: 'Pruebaformulario')])
