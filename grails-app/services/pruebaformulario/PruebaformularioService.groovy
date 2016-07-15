@@ -17,7 +17,7 @@ class PruebaformularioService {
 //log.println("${params.offset.getClass()}")
 
       if (!params.sort){params.sort = 'apellido'}
-      if (!params.order){params.ord = 'asc'}
+      if (!params.order){params.order = 'asc'}
       if (!params.max){params.max = 10} else{params.max = params.max.toInteger()}
       if (!params.offset){params.offset = 0} else{params.offset = params.offset.toInteger()}
 
