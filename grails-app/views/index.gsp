@@ -117,6 +117,13 @@
 					</g:each>
 				</ul>
 			</div>
+
+			<sec:ifNotLoggedIn>
+	  	<g:link controller="login" action="auth">Login</g:link>
+			</sec:ifNotLoggedIn>
+
+			<sec:ifLoggedIn> (<g:link controller="logout">sign out</g:link>)</sec:ifLoggedIn>
+
 		</div>
 	</body>
 </html>

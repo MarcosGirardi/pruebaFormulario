@@ -4,6 +4,8 @@ package pruebaformulario
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured
+
 
 class PruebaformularioController {
   def validationService
@@ -13,6 +15,7 @@ class PruebaformularioController {
 
 
 //-----------------------------------Listar-------------------------------------
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index(def params) {
       log.println("---------------------------------------------")
       log.println("llega un request al Listar")
@@ -46,6 +49,7 @@ class PruebaformularioController {
 
 
 //--------------------------------GET Method------------------------------------
+    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'])
     def show(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al show")
@@ -78,6 +82,7 @@ class PruebaformularioController {
 
 
 //------------------------------Create Method-----------------------------------
+    @Secured(['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'])
     def create() {
         respond new Pruebaformulario(params)
     }
@@ -85,6 +90,7 @@ class PruebaformularioController {
 
 
 //-----------------------------------POST Method--------------------------------
+    @Secured(['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'])
     def save(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al post")
@@ -155,6 +161,7 @@ class PruebaformularioController {
 
 
 //--------------------------------Edit Method-----------------------------------
+    @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
     def edit(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al edit")
@@ -202,6 +209,7 @@ class PruebaformularioController {
 
 
 //--------------------------------PUT Method------------------------------------
+    @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
     def update(def params) {  //Pruebaformulario pruebaformularioInstance
       log.println("---------------------------------------------")
       log.println("llega un request al put")
@@ -274,6 +282,7 @@ class PruebaformularioController {
 
 
 //---------------------------------DELET Method---------------------------------
+    @Secured(['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY'])
     def delete(Pruebaformulario pruebaformularioInstance) {
       log.println("---------------------------------------------")
       log.println("llega un request al delete")

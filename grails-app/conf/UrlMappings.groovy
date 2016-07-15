@@ -10,6 +10,9 @@ class UrlMappings {
 				//"/$controller/update(.$format)?"(action: "index")
 				//"/$controller/save"(action: "index")
 
+				"/login/$action?"(controller: "login")
+				"/logout/$action?"(controller: "logout")
+
         "/"(view:"/index")
         "500"(view:'/error')
 	}
